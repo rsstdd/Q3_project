@@ -1,8 +1,8 @@
 {
-  "name": "",
+  "name": "Q3_project",
   "version": "0.1.0",
-  "author": "",
-  "description": "",
+  "author": "Ross Todd <rosstod@gmail.com>",
+  "description": "Ryan Sobol's React skeleton for Brunch",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -31,5 +31,7 @@
     "postcss-brunch": "^2.0.1",
     "surge": "^0.18.0",
     "uglify-js-brunch": "^2.0.1"
-  }
+  },
+  "main": ".eslintrc.js",
+  "keywords": []
 }
