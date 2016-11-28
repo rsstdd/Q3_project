@@ -8,22 +8,9 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const morgan = require('morgan');
 const path = require('path');
 
 app.disable('x-powered-by');
-
-switch (app.get('env')) {
-  case 'development':
-    app.use(morgan('dev'));
-    break;
-
-  case 'production':
-    app.use(morgan('short'));
-    break;
-
-  default:
-}
 
 app.use(bodyParser.json());
 app.use(cookieParser());
