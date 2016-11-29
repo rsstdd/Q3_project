@@ -8,6 +8,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {blue700} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
+
+
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
@@ -21,10 +23,12 @@ const muiTheme = getMuiTheme({
 });
 
 ReactDOM.render(
-  <MuiThemeProvider muiTheme={muiTheme}>
-    <App
-    // muiTheme={muiTheme}
-    />
-  </MuiThemeProvider>,
+
+    <MuiThemeProvider muiTheme={muiTheme}>
+      <App
+      // muiTheme={muiTheme}
+      />
+    </MuiThemeProvider>,
+
   document.getElementById('app')
 );

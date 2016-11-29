@@ -10,9 +10,6 @@ import Profile from './Profile';
 import { Match, Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 
-
-
-
 const style = {
   height: 200,
   width: 1350,
@@ -35,13 +32,13 @@ const buttonWrapper = {
 const Main = React.createClass({
   getInitialState(){
     return {
-      firstName: '',
-      lastName: '',
-      email: '',
+      firstName: 'Ping Pong',
+      lastName: 'Lady',
+      email: 'grandmapingpong@gmail.com',
       password: '',
-      age: '',
-      hometown: '',
-      avatarUrl: ''
+      age: '79',
+      hometown: 'Chicago',
+      avatarUrl: 'http://www.ylhelp.com/wp-content/uploads/2008/ThisYearStartedaLunchtimeActivity_E466/image.png'
     }
   },
 
@@ -77,14 +74,18 @@ const Main = React.createClass({
 
       <Match pattern="/" exactly render={
         () =>  <div>
-          <Paper style={style} zDepth={1} >
+          <Paper
+          style={style} zDepth={1}
+          >
             <div>
               <div>
                 <h2>Keep track of stats. Create an Account or Sign In to get started...</h2>
               </div>
             </div>
 
-              <Paper style={buttonWrapper} zDepth={1} >
+              <Paper
+              style={buttonWrapper} zDepth={1}
+              >
 
 
                 <div>
