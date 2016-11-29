@@ -17,18 +17,18 @@ app.use(cookieParser());
 
 app.use(express.static(path.join('public')));
 
-// CSRF protection
-app.use((req, res, next) => {
-  if (/json/.test(req.get('Accept'))) {
-    return next();
-  }
-
-  res.sendStatus(406);
-});
-
 app.use((_req, res) => {
-  res.sendStatus(404);
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+// CSRF protection
+// app.use((req, res, next) => {
+//   if (/json/.test(req.get('Accept'))) {
+//     return next();
+//   }
+//
+//   res.sendStatus(406);
+// });
 
 app.use((err, _req, res, _next) => {
   if (err.output && err.output.statusCode) {

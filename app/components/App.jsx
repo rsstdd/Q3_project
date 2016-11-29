@@ -1,13 +1,8 @@
-// import React from 'react';
-//
-// const App = React.createClass({
-//   render() {
-//     return <h1>Hello world</h1>;
-//   }
-// });
-//
-// export default App;
 import Header from './Header';
+import Main from './Main';
+import { BrowserRouter } from 'react-router';
+// import Footer from './Footer';
+
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -15,14 +10,13 @@ import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const App = () => (
-  <MuiThemeProvider>
-    <Header />
-  </MuiThemeProvider>
-);
-
-ReactDOM.render(
-  <App />,
-  document.getElementById('app')
+  <BrowserRouter >
+    <div>
+      <Header />
+      <Main />
+      {/* <Footer /> */}
+    </div>
+  </BrowserRouter>
 );
 
 export default App;
