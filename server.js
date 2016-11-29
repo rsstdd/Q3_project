@@ -48,8 +48,8 @@ app.use((req, res, next) => {
   res.sendStatus(406);
 });
 
-const players = require('./routes/api/players');
-const matches = require('./routes/api/matches');
+const players = require('./routes/players');
+const matches = require('./routes/matches');
 
 app.use(players);
 app.use(matches);

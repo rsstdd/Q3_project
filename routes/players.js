@@ -2,16 +2,16 @@
 
 const express = require('express');
 const boom = require('boom');
-const knex = require('../../knex');
+const knex = require('../knex');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 const bcyrpt = require('bcrypt-as-promised');
 const ev = require('express-validation');
-const validations = require('../../validations/players');
+const validations = require('../validations/players');
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-router.get('/players', (_req, res, next) => {
+router.get('/api/players', (_req, res, next) => {
   knex('players')
     .orderBy('id')
     .then((rows) => {
@@ -24,7 +24,7 @@ router.get('/players', (_req, res, next) => {
     });
 });
 
-router.post('/players', ev(validations.post), (req, res, next) => {
+router.post('/api/players', ev(validations.post), (req, res, next) => {
   const { email, password, firstName, lastName, age, country, bio } = req.body;
 
   knex('players')
@@ -53,7 +53,7 @@ router.post('/players', ev(validations.post), (req, res, next) => {
     });
 });
 
-router.get('/players/:id', (req, res, next) => {
+router.get('/api/players/:id', (req, res, next) => {
   const id = Number.parseInt(req.params.id);
 
   if (Number.isNaN(id)) {
@@ -81,7 +81,7 @@ router.get('/players/:id', (req, res, next) => {
 });
 
 // validate the post
-router.patch('/players/:id', (req, res, next) => {
+router.patch('/api/players/:id', (req, res, next) => {
   const id = Number.parseInt(req.params.id);
 
   if (Number.isNaN(id)) {
@@ -133,7 +133,7 @@ router.patch('/players/:id', (req, res, next) => {
     });
 });
 
-router.delete('/players/:id', (req, res, next) => {
+router.delete('/api/players/:id', (req, res, next) => {
   let player;
   const id = Number.parseInt(req.params.id);
 

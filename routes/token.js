@@ -16,7 +16,7 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.post('/token', authorize, (req, res, next) => {
+router.post('/api/token', authorize, (req, res, next) => {
   const { email, password } = req.body;
 
   let user;
@@ -29,7 +29,7 @@ router.post('/token', authorize, (req, res, next) => {
         throw boom.create(400, 'Bad email or password');
       }
 
-      user = camelizeKeys(row); // object
+      user = camelizeKeys(row);
 
       return bcrypt.compare(password, user.hashedPassword);
     })
@@ -57,7 +57,7 @@ router.post('/token', authorize, (req, res, next) => {
     });
 });
 
-router.delete('/token', (req, res, _next) => {
+router.delete('/api/token', (req, res, _next) => {
   res.clearCookie('token');
   res.status(200);
   res.send(true);

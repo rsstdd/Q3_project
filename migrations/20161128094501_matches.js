@@ -22,6 +22,14 @@ exports.up = function(knex) {
     table.integer('score_p2')
       .notNullable();
 
+    table.bool('win_p1')
+      .defaultTo(false)
+      .notNullable();
+
+    table.bool('win_p2')
+      .defaultTo(false)
+      .notNullable();
+
     table.timestamps(true, true);
   });
 };
