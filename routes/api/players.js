@@ -79,6 +79,8 @@ router.get('/players/:id', (req, res, next) => {
       next(err);
     });
 });
+
+// validate the post
 router.patch('/players/:id', (req, res, next) => {
   const id = Number.parseInt(req.params.id);
 
@@ -87,35 +89,35 @@ router.patch('/players/:id', (req, res, next) => {
   }
 
   knex('players')
-    .where('id', id) // since you already assigned it a variable, you should use it
+    .where('id', id)
     .first()
     .then((player) => {
-      if(!player) {
+      if (!player) {
         throw boom.create(404, 'Not Found');
       }
 
-      const { title, author, genre, description, coverUrl } = req.body;
+      const { email, password, firstName, lastName, age, country, bio } = req.body;
       const updateplayer = {};
 
-      if (title || title.trim()) { // says the trim is better
-        updateplayer.title = title;
-      }
-
-      if (author) {
-        updateplayer.author = author;
-      }
-
-      if (genre) {
-        updateplayer.genre = genre;
-      }
-
-      if (description) {
-        updateplayer.description = description;
-      }
-
-      if (coverUrl) {
-        updateplayer.coverUrl = coverUrl;
-      }
+      // if (title || title.trim()) {
+      //   updateplayer.title = title;
+      // }
+      //
+      // if (author) {
+      //   updateplayer.author = author;
+      // }
+      //
+      // if (genre) {
+      //   updateplayer.genre = genre;
+      // }
+      //
+      // if (description) {
+      //   updateplayer.description = description;
+      // }
+      //
+      // if (coverUrl) {
+      //   updateplayer.coverUrl = coverUrl;
+      // }
 
       return knex('players')
         .update(decamelizeKeys(updateplayer), '*')

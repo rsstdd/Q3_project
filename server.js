@@ -49,10 +49,10 @@ app.use((req, res, next) => {
 });
 
 const players = require('./routes/api/players');
-// const matches = require('./routes/matches');
+const matches = require('./routes/api/matches');
 
 app.use(players);
-// app.use(matches);
+app.use(matches);
 
 >>>>>>> Added routes/api/players
 app.use((_req, res) => {
