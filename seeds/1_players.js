@@ -27,6 +27,31 @@ exports.seed = function(knex) {
         img_url: 'some/url.com',
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
+      },
+      {
+        id: 3,
+        email: 'jack@nicholson.com',
+        hashed_password: '$2a$12$LaKBUi8mCFc/9LiCtvwcvuNIjgaq9LJuy/NO.m4P5.3FP8zA6t2Va',
+        first_name: 'Jack',
+        last_name: 'Nicholson',
+        age: 79,
+        country: 'United States',
+        bio: "With my sunglasses on, I'm Jack Nicholson. Without them, I'm fat and 60.",
+        img_url: 'some/url.com',
+        created_at: new Date('2016-06-29 14:26:16 UTC'),
+        updated_at: new Date('2016-06-29 14:26:16 UTC')
+      }, {
+        id: 4,
+        email: 'sanders@bernie.gov',
+        hashed_password: '$2a$12$LaKBUi8mCFc/9LiCtvwcvuNIjgaq9LJuy/NO.m4P5.3FP8zA6t2Va',
+        first_name: 'Bernie',
+        last_name: 'Sanders',
+        age: 75,
+        country: 'United States',
+        bio: 'What my campaign is about is a political revolution - millions of people standing up and saying, enough is enough. Bernie has a mean server. Get ready to feel the Bern.',
+        img_url: 'some/url.com',
+        created_at: new Date('2016-06-29 14:26:16 UTC'),
+        updated_at: new Date('2016-06-29 14:26:16 UTC')
       }]);
     })
     .then(() => {
