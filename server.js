@@ -6,17 +6,55 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const path = require('path');
 
 app.disable('x-powered-by');
+
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const morgan = require('morgan');
+
+switch (app.get('env')) {
+  case 'development':
+    app.use(morgan('dev'));
+    break;
+
+  case 'production':
+    app.use(morgan('short'));
+    break;
+
+  default:
+}
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+const path = require('path');
+
 app.use(express.static(path.join('public')));
 
+<<<<<<< HEAD
+=======
+// This breaks the JSON from teh server
+// app.use((_req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// });
+
+// CSRF protection
+app.use((req, res, next) => {
+  if (/json/.test(req.get('Accept'))) {
+    return next();
+  }
+
+  res.sendStatus(406);
+});
+
+const players = require('./routes/api/players');
+// const matches = require('./routes/matches');
+
+app.use(players);
+// app.use(matches);
+
+>>>>>>> Added routes/api/players
 app.use((_req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
