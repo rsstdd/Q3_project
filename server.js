@@ -32,8 +32,6 @@ const path = require('path');
 
 app.use(express.static(path.join('public')));
 
-<<<<<<< HEAD
-=======
 // This breaks the JSON from teh server
 // app.use((_req, res) => {
 //   res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -53,20 +51,6 @@ const matches = require('./routes/matches');
 
 app.use(players);
 app.use(matches);
-
->>>>>>> Added routes/api/players
-app.use((_req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-// CSRF protection
-// app.use((req, res, next) => {
-//   if (/json/.test(req.get('Accept'))) {
-//     return next();
-//   }
-//
-//   res.sendStatus(406);
-// });
 
 app.use((err, _req, res, _next) => {
   if (err.output && err.output.statusCode) {
