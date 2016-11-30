@@ -38,7 +38,7 @@ const Main = React.createClass({
       password: '',
       age: '79',
       hometown: 'Cleveland',
-      avatarUrl: 'http://www.ylhelp.com/wp-content/uploads/2008/ThisYearStartedaLunchtimeActivity_E466/image.png'
+      avatarUrl: 'http://www.imageno.com/image.php?id=9sixok6f6pew&kk=1237175343'
     }
   },
 
