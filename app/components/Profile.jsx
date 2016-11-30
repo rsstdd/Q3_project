@@ -11,12 +11,19 @@ import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+
+
 const containerStyle = {
-  height: 500,
-  width: 1350,
-  margin: 10,
+  height: 400,
+  width: 950,
+  margin: '10px auto 0 auto',
   textAlign: 'center',
   // display: 'inline-block',
+  display: 'flex',
+  // justifyContent: 'space-around',
+  justifyContent: 'center',
+  alignItems: 'center'
 };
 
 const imgContainer = {
@@ -29,13 +36,7 @@ const imgContainer = {
 
 const avStyle = {margin: 5};
 
-// const textContainer = {
-//   height: 300,
-//   width: 1000,
-  // textAlign: 'left,'
-  // verticalAlign: 'middle',
-//
-// };
+const buttonStyle = {margin: 12};
 
 
 // const MovieDialog = React.createClass ({
@@ -76,7 +77,73 @@ const Profile = (props) => (
 
         </div>
 
+        <div >
+        <RaisedButton label="Add Match Results" style={buttonStyle} />
+        </div>
+
     </Paper>
+
+    <Paper style={containerStyle} zDepth={1}>
+    <Table>
+      <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+        <TableRow adjustForCheckbox={false}>
+          <TableHeaderColumn>Match Number</TableHeaderColumn>
+          <TableHeaderColumn>Opponent</TableHeaderColumn>
+          <TableHeaderColumn>Status</TableHeaderColumn>
+          <TableHeaderColumn>Score</TableHeaderColumn>
+          <TableHeaderColumn>Date</TableHeaderColumn>
+
+        </TableRow>
+      </TableHeader>
+      <TableBody displayRowCheckbox={false}>
+        <TableRow>
+          <TableRowColumn>1</TableRowColumn>
+          <TableRowColumn>John Smith</TableRowColumn>
+          <TableRowColumn>Won</TableRowColumn>
+          <TableRowColumn>11 - 9</TableRowColumn>
+          <TableRowColumn>11/29/2016</TableRowColumn>
+        </TableRow>
+        <TableRow>
+          <TableRowColumn>2</TableRowColumn>
+          <TableRowColumn>Randal White</TableRowColumn>
+          <TableRowColumn>Lost</TableRowColumn>
+          <TableRowColumn>5 - 11</TableRowColumn>
+          <TableRowColumn>11/29/2016</TableRowColumn>
+        </TableRow>
+        <TableRow>
+          <TableRowColumn>3</TableRowColumn>
+          <TableRowColumn>Stephanie Sanders</TableRowColumn>
+          <TableRowColumn>Won</TableRowColumn>
+          <TableRowColumn>11 - 6</TableRowColumn>
+          <TableRowColumn>11/29/2016</TableRowColumn>
+        </TableRow>
+        <TableRow>
+          <TableRowColumn>4</TableRowColumn>
+          <TableRowColumn>Steve Brown</TableRowColumn>
+          <TableRowColumn>Won</TableRowColumn>
+          <TableRowColumn>11 - 3</TableRowColumn>
+          <TableRowColumn>11/29/2016</TableRowColumn>
+        </TableRow>
+        <TableRow>
+          <TableRowColumn>5</TableRowColumn>
+          <TableRowColumn>Bill Bob</TableRowColumn>
+          <TableRowColumn>Won</TableRowColumn>
+          <TableRowColumn>11 - 8</TableRowColumn>
+          <TableRowColumn>11/29/2016</TableRowColumn>
+        </TableRow>
+        <TableRow>
+          <TableRowColumn>6</TableRowColumn>
+          <TableRowColumn>Bozo the Clown</TableRowColumn>
+          <TableRowColumn>Lost</TableRowColumn>
+          <TableRowColumn>3 - 11</TableRowColumn>
+          <TableRowColumn>11/29/2016</TableRowColumn>
+        </TableRow>
+      </TableBody>
+
+      </Table>
+
+    </Paper>
+
 
   </div>
 );

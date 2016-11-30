@@ -37,7 +37,7 @@ const Main = React.createClass({
       email: 'grandmapingpong@gmail.com',
       password: '',
       age: '79',
-      hometown: 'Chicago',
+      hometown: 'Cleveland',
       avatarUrl: 'http://www.ylhelp.com/wp-content/uploads/2008/ThisYearStartedaLunchtimeActivity_E466/image.png'
     }
   },

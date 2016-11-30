@@ -33,9 +33,9 @@ const path = require('path');
 app.use(express.static(path.join('public')));
 
 // This breaks the JSON from teh server
-// app.use((_req, res) => {
-//   res.sendFile(path.join(__dirname, 'public', 'index.html'));
-// });
+app.use((_req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // CSRF protection
 app.use((req, res, next) => {
