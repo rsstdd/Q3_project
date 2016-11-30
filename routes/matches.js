@@ -23,8 +23,8 @@ const authorize = function(req, res, next) {
 router.get('/api/matches', (req, res, next) => {
   knex('matches')
     .distinct('matches.id as match_id')
-    .select('p1.first_name as p1_first_name', 'p1.last_name as p1_last_name', 'p1.country as p1_country')
-    .select('p2.first_name as p2_first_name', 'p2.last_name as  p2_last_name', 'p2.country as p2_country')
+    .select('p1.first_name as p1_first_name', 'p1.last_name as p1_last_name', 'p1.country as p1_country', 'p1.img_url as p1_img')
+    .select('p2.first_name as p2_first_name', 'p2.last_name as  p2_last_name', 'p2.country as p2_country', 'p2.img_url as p2_img')
     .select('matches.p1_id', 'matches.p2_id', 'matches.score_p1', 'matches.score_p2', 'matches.win_p1', 'matches.win_p2')
     .innerJoin('players as p1', 'p1.id', 'matches.p1_id')
     .innerJoin('players as p2', 'p2.id', 'matches.p2_id')
@@ -40,21 +40,23 @@ router.get('/api/matches', (req, res, next) => {
 });
 
 router.get('/api/matches/:id', (req, res, next) => {
-  const { playerId } = Number.parseInt(req.body);
+  // const { playerId } = Number.parseInt(req.body);
 
-  if (Number.isNaN(playerId)) {
-    return next();
-  }
+  // if (Number.isNaN(playerId)) {
+  //   return next();
+  // }
+  const playerId = 3;
 
   knex('matches')
     .distinct('matches.id as match_id')
     .select('matches.p1_id', 'matches.p2_id', 'matches.score_p1', 'matches.score_p2', 'matches.win_p1', 'matches.win_p2')
-    .select('p1.first_name as p1_first_name', 'p1.last_name as p1_last_name', 'p1.country as p1_country')
-    .select('p2.first_name as p2_first_name', 'p2.last_name as  p2_last_name', 'p2.country as p2_country')
+    .select('p1.first_name as p1_first_name', 'p1.last_name as p1_last_name', 'p1.country as p1_country', 'p1.img_url as p1_img')
+    .select('p2.first_name as p2_first_name', 'p2.last_name as  p2_last_name', 'p2.country as p2_country', 'p2.img_url as p2_img')
     .innerJoin('players as p1', 'p1.id', 'matches.p1_id')
     .innerJoin('players as p2', 'p2.id', 'matches.p2_id')
     .where('matches.p1_id', playerId)
     .orWhere('matches.p2_id', playerId)
+    .orderBy('match_id', 'DESC')
     .then((rows) => {
       const matches = camelizeKeys(rows);
 
