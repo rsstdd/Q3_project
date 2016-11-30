@@ -24,8 +24,15 @@ router.get('/api/players', (_req, res, next) => {
     });
 });
 
-router.post('/api/players', ev(validations.post), (req, res, next) => {
-  const { email, password, firstName, lastName, age, country, bio } = req.body;
+// ev(validations.post),
+router.post('/api/players', (req, res, next) => {
+  let { email, password, firstName, lastName, age, country, bio } = req.body;
+
+  // email =
+  // password =
+  // firstName =
+  // lastName =
+  age = parseInt(age);
 
   knex('players')
     .where('email', email)
@@ -98,26 +105,6 @@ router.patch('/api/players/:id', (req, res, next) => {
 
       const { email, password, firstName, lastName, age, country, bio } = req.body;
       const updateplayer = {};
-
-      // if (title || title.trim()) {
-      //   updateplayer.title = title;
-      // }
-      //
-      // if (author) {
-      //   updateplayer.author = author;
-      // }
-      //
-      // if (genre) {
-      //   updateplayer.genre = genre;
-      // }
-      //
-      // if (description) {
-      //   updateplayer.description = description;
-      // }
-      //
-      // if (coverUrl) {
-      //   updateplayer.coverUrl = coverUrl;
-      // }
 
       return knex('players')
         .update(decamelizeKeys(updateplayer), '*')

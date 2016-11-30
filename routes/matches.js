@@ -4,29 +4,34 @@ const express = require('express');
 const knex = require('../knex');
 const boom = require('boom');
 const { camelizeKeys, decamelizeKeys } = require('humps');
+const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
-// const authorize = function(req, res, next) {
-//   jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err, decoded) => {
-//     if (err) {
-//       return next(boom.create(401, 'Unauthorized'));
-//     }
-//
-//     req.token = decoded;
-//
-//     next();
-//   });
-// };
+const authorize = function(req, res, next) {
+  jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return next(boom.create(401, 'Unauthorized'));
+    }
+
+    req.token = decoded;
+
+    next();
+  });
+};
 
 router.get('/api/matches', (req, res, next) => {
-  knex.raw(
-    `SELECT * FROM matches INNER JOIN players ON players.id = matches.p1_id`
-  )
+  knex('matches')
+    .distinct('matches.id as match_id')
+    .select('p1.first_name as p1_first_name', 'p1.last_name as p1_last_name', 'p1.country as p1_country')
+    .select('p2.first_name as p2_first_name', 'p2.last_name as  p2_last_name', 'p2.country as p2_country')
+    .select('matches.p1_id', 'matches.p2_id', 'matches.score_p1', 'matches.score_p2', 'matches.win_p1', 'matches.win_p2')
+    .innerJoin('players as p1', 'p1.id', 'matches.p1_id')
+    .innerJoin('players as p2', 'p2.id', 'matches.p2_id')
     .then((rows) => {
       const matches = camelizeKeys(rows);
 
-      res.send(matches.rows);
+      res.send(matches);
     })
     .catch((err) => {
       next(err);
@@ -40,8 +45,13 @@ router.get('/api/matches/:id', (req, res, next) => {
     return next();
   }
 
-  knex.from('matches')
-    .innerJoin('players', 'matches.p1_id', 'players.id')
+  knex('matches')
+    .distinct('matches.id as match_id')
+    .select('matches.p1_id', 'matches.p2_id', 'matches.score_p1', 'matches.score_p2', 'matches.win_p1', 'matches.win_p2')
+    .select('p1.first_name as p1_first_name', 'p1.last_name as p1_last_name', 'p1.country as p1_country')
+    .select('p2.first_name as p2_first_name', 'p2.last_name as  p2_last_name', 'p2.country as p2_country')
+    .innerJoin('players as p1', 'p1.id', 'matches.p1_id')
+    .innerJoin('players as p2', 'p2.id', 'matches.p2_id')
     .where('matches.p1_id', playerId)
     .orWhere('matches.p2_id', playerId)
     .then((rows) => {
@@ -54,7 +64,7 @@ router.get('/api/matches/:id', (req, res, next) => {
     });
 });
 
-router.post('/api/matches/', (req, res, next) => {
+router.post('/api/matches/', authorize, (req, res, next) => {
   let { p1Id, p2Id, scoreP1, scoreP2, winP1, winP2 } = req.body;
 
   p1Id = parseInt(p1Id);
@@ -66,19 +76,19 @@ router.post('/api/matches/', (req, res, next) => {
 
   const match = { p1Id, p2Id, scoreP1, scoreP2, winP1, winP2 };
 
-     knex('matches')
-      .insert(decamelizeKeys(match), '*')
-      .then((rows) => {
-        const insertMatch = camelizeKeys(rows[0]);
+  knex('matches')
+  .insert(decamelizeKeys(match), '*')
+  .then((rows) => {
+    const insertMatch = camelizeKeys(rows[0]);
 
-        res.send(insertMatch);
-      })
-      .catch((err) => {
-        next(err);
-      });
+    res.send(insertMatch);
+  })
+  .catch((err) => {
+    next(err);
+  });
 });
 
-router.delete('/api/matches', (req, res, next) => {
+router.delete('/api/matches', authorize, (req, res, next) => {
   let match;
   const  { matchId } = req.body;
 
@@ -96,10 +106,8 @@ router.delete('/api/matches', (req, res, next) => {
     })
     .then(() => {
       delete match.id;
-      const jsonmatch = camelizeKeys(match);
-      //
-      res.clearCookie('matches');
-      res.send(match.id);
+
+      res.send(match);
     })
       .catch((err) => {
         next(err);
