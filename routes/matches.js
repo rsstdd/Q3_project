@@ -28,6 +28,7 @@ router.get('/api/matches', (req, res, next) => {
     .select('matches.p1_id', 'matches.p2_id', 'matches.score_p1', 'matches.score_p2', 'matches.win_p1', 'matches.win_p2')
     .innerJoin('players as p1', 'p1.id', 'matches.p1_id')
     .innerJoin('players as p2', 'p2.id', 'matches.p2_id')
+    .orderBy('match_id', 'DESC')
     .then((rows) => {
       const matches = camelizeKeys(rows);
 
