@@ -20,7 +20,7 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.get('/api/matches', (req, res, next) => {
+router.get('/matches', (req, res, next) => {
   knex('matches')
     .distinct('matches.id as match_id')
     .select('p1.first_name as p1_first_name', 'p1.last_name as p1_last_name', 'p1.country as p1_country', 'p1.img_url as p1_img')
@@ -39,7 +39,7 @@ router.get('/api/matches', (req, res, next) => {
     });
 });
 
-router.get('/api/matches/:id', (req, res, next) => {
+router.get('/matches/:id', (req, res, next) => {
   const { playerId } = Number.parseInt(req.body);
 
   if (Number.isNaN(playerId)) {
@@ -66,7 +66,7 @@ router.get('/api/matches/:id', (req, res, next) => {
     });
 });
 
-router.post('/api/matches/', authorize, (req, res, next) => {
+router.post('/matches/', authorize, (req, res, next) => {
   let { p1Id, p2Id, scoreP1, scoreP2, winP1, winP2 } = req.body;
 
   p1Id = parseInt(p1Id);
@@ -90,7 +90,7 @@ router.post('/api/matches/', authorize, (req, res, next) => {
   });
 });
 
-router.delete('/api/matches', authorize, (req, res, next) => {
+router.delete('/matches', authorize, (req, res, next) => {
   let match;
   const  { matchId } = req.body;
 

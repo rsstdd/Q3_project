@@ -11,7 +11,7 @@ const validations = require('../validations/players');
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-router.get('/api/players', (_req, res, next) => {
+router.get('/players', (_req, res, next) => {
   knex('players')
     .orderBy('id')
     .then((rows) => {
@@ -25,14 +25,31 @@ router.get('/api/players', (_req, res, next) => {
 });
 
 // ev(validations.post),
-router.post('/api/players', (req, res, next) => {
-  let { email, password, firstName, lastName, age, country, bio } = req.body;
-
-  // email =
-  // password =
-  // firstName =
-  // lastName =
+router.post('/players', (req, res, next) => {
+  let { email, password, firstName, lastName, age, country, bio, imgUrl } = req.body;
   age = parseInt(age);
+
+    // if (!email || !email.trim()) {
+    //   return next(boom.create(400, 'Email must not be blank'));
+    // }
+    // if (!password || password.length < 8) {
+    //   return next(boom.create(400, 'Password must be at least 8 characters long'));
+    // }
+    // if (!firstName || !firstName.trim()) {
+    //   return next(boom.create(400, 'First Name must not be blank'));
+    // }
+    // if (!lastName || !lastName.trim()) {
+    //   return next(boom.create(400, 'Last Name must not be blank'));
+    // }
+    // if (!country || country.length < 8) {
+    //   return next(boom.create(400, 'Country Must not be blank'));
+    // }
+    // if (!bio || !bio.trim()) {
+    //   return next(boom.create(400, 'Bio must not be blank'));
+    // }
+    // if (!imgUrl || !imgUrl.trim()) {
+    //   return next(boom.create(400, 'imgUrl must not be blank'));
+    // }
 
   knex('players')
     .where('email', email)
@@ -44,6 +61,7 @@ router.post('/api/players', (req, res, next) => {
       bcyrpt.hash(password, 12)
         .then((hashedPassword) => {
           const insertPlayer = { email, hashedPassword, firstName, lastName, age, country, bio };
+          console.log(insertPlayer);
 
           return knex('players').insert(decamelizeKeys(insertPlayer), '*');
         })
@@ -60,7 +78,7 @@ router.post('/api/players', (req, res, next) => {
     });
 });
 
-router.get('/api/players/:id', (req, res, next) => {
+router.get('/players/:id', (req, res, next) => {
   const id = Number.parseInt(req.params.id);
 
   if (Number.isNaN(id)) {
@@ -88,7 +106,7 @@ router.get('/api/players/:id', (req, res, next) => {
 });
 
 // validate the post
-router.patch('/api/players/:id', (req, res, next) => {
+router.patch('/players/:id', (req, res, next) => {
   const id = Number.parseInt(req.params.id);
 
   if (Number.isNaN(id)) {
@@ -120,7 +138,7 @@ router.patch('/api/players/:id', (req, res, next) => {
     });
 });
 
-router.delete('/api/players/:id', (req, res, next) => {
+router.delete('/players/:id', (req, res, next) => {
   let player;
   const id = Number.parseInt(req.params.id);
 

@@ -22,14 +22,15 @@ module.exports.post = {
       .trim(),
 
     lastName: Joi.string()
-      .label('First Name')
+      .label('Last Name')
       .required()
       .trim(),
 
     age: Joi.number()
       .label('Age')
       .required()
-      .integer(),
+      .integer()
+      .min(1990),
 
     country: Joi.string()
       .label('Country')
@@ -38,6 +39,11 @@ module.exports.post = {
 
     bio: Joi.string()
       .label('Bio')
+      .required()
+      .trim(),
+
+    imgUrl: Joi.string()
+      .label('avatarUrl')
       .required()
       .trim()
   }

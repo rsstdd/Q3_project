@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import axios from 'axios';
+
 import Paper from 'material-ui/Paper';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
@@ -30,7 +32,7 @@ const buttonWrapper = {
 };
 
 const Main = React.createClass({
-  getInitialState(){
+  getInitialState() {
     return {
       firstName: 'Ping Pong',
       lastName: 'Lady',
@@ -39,78 +41,71 @@ const Main = React.createClass({
       age: '79',
       hometown: 'Cleveland',
       avatarUrl: 'http://i.imgur.com/xvNsFDH.png'
-    }
+    };
   },
 
-  getNewUserInfo(user) {
-    this.setState ({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      password: user.password,
-      age: user.age,
-      hometown: user.hometown,
-      avatarUrl: user.avatarUrl
-    })
-  },
-  
+  // handleAddPlayer(user) {
+  //   // this.setState ({
+  //   //   firstName: user.firstName,
+  //   //   lastName: user.lastName,
+  //   //   email: user.email,
+  //   //   password: user.password,
+  //   //   age: user.age,
+  //   //   hometown: user.hometown,
+  //   //   avatarUrl: user.avatarUrl
+  //   // })
+  // },
 
-
-  render(){ return (
-    <main>
-      <Match pattern="/signup" render={
-        () => <SignUp
-          getNewUserInfo={this.getNewUserInfo}
-        />
-
-      }/>
-      <Match pattern="/signin" component={SignIn} />
-      <Match pattern="/profile" render={
-        () => <Profile
-            {...this.state}
+  render() {
+    return (
+      <main>
+        <Match pattern="/signup" render={
+          () => <SignUp
+            handleAddPlayer={this.handleAddPlayer}
           />
 
-      }/>
+        }/>
+        <Match pattern="/signin" component={SignIn} />
+        <Match pattern="/profile" render={
+          () => <Profile
+              {...this.state}
+            />
 
-      <Match pattern="/" exactly render={
-        () =>  <div>
-          <Paper
-          style={style} zDepth={1}
-          >
-            <div>
+        }/>
+
+        <Match pattern="/" exactly render={
+          () => <div>
+            <Paper style={style} zDepth={1}>
               <div>
-                <h2>Keep track of stats. Create an Account or Sign In to get started...</h2>
+                <div>
+                  <h2>Keep track of stats. Create an Account or Sign In to get started...</h2>
+                </div>
               </div>
+
+                <Paper
+                style={buttonWrapper} zDepth={1}
+                >
+
+                  <div>
+                    <Link to='/signup'>
+                      <RaisedButton label="Create Account" />
+                    </Link>
+                  </div>
+                  <br />
+                  <div>
+                    <Link to='/signin'>
+                      <RaisedButton label="Sign In" />
+                    </Link>
+                  </div>
+
+                  </Paper>
+
+              </Paper>
             </div>
-
-              <Paper
-              style={buttonWrapper} zDepth={1}
-              >
-
-
-                <div>
-                  <Link to='/signup'>
-                    <RaisedButton label="Create Account" />
-                  </Link>
-                </div>
-                <br />
-                <div>
-                  <Link to='/signin'>
-                    <RaisedButton label="Sign In" />
-                  </Link>
-                </div>
-
-                </Paper>
-
-            </Paper>
-          </div>
-      }/>
-    </main>
+        }/>
+      </main>
     );
   }
 })
-
-
-
 
 export default Main;
