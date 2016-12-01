@@ -38,9 +38,9 @@ const Profile = React.createClass({
   },
 
   componentDidMount() {
-    axios.get('/api/matches/id', {
+    axios.get('/api/matches', {
       params: {
-        ID: this.props.playerId,
+        id: this.props.playerId
       }
     })
       .then((res) => {
