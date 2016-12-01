@@ -28,6 +28,7 @@ const SignIn = () => (
                 // floatingLabelText="Floating Label Text"
               /><br />
               <TextField
+                type="password"
                 hintText="Password"
                 // errorText="This field is required."
                 // floatingLabelText="MultiLine and FloatingLabel"

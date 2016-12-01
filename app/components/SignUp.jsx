@@ -86,6 +86,7 @@ const SignUp = React.createClass({
                   // floatingLabelText="Floating Label Text"
                 /><br />
                 <TextField
+                  type="password"
                   hintText="Password"
                   name="password"
                   onChange={this.handleChange}

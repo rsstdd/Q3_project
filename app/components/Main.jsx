@@ -52,8 +52,8 @@ const Main = React.createClass({
       hometown: user.hometown,
       avatarUrl: user.avatarUrl
     })
-
   },
+  
 
 
   render(){ return (
