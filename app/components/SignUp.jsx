@@ -16,12 +16,8 @@ const style = {
   width: 1350,
   margin: 10,
   textAlign: 'center',
-  display: 'inline-block',
+  display: 'inline-block'
 };
-
-// handleSubmit() {
-//   this.props.getNewUserInfo(this.props.user);
-// }
 
 const SignUp = React.createClass({
   getInitialState() {
@@ -56,8 +52,10 @@ const SignUp = React.createClass({
       imgUrl: this.state.imgUrl
     })
     .then((response) => {
-      // this.props.authUser(true);
-      console.log(response);
+      const playerId = response.data.id;
+
+      this.props.handleAuthPlayer(true, playerId);
+      this.redirect('/profile/' + playerId)
     })
     .catch((error) => {
       console.log(error);
@@ -152,9 +150,3 @@ const SignUp = React.createClass({
 });
 
 export default SignUp;
-
-// firstName: this.refs['firstName'].value,
-// lastName: this.refs['lastName'].value,
-// userName: this.refs['userName'].value,
-// email: this.refs['email'].value,
-// password: this.refs['password'].value

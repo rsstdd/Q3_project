@@ -61,7 +61,6 @@ router.post('/players', (req, res, next) => {
       bcyrpt.hash(password, 12)
         .then((hashedPassword) => {
           const insertPlayer = { email, hashedPassword, firstName, lastName, age, country, bio };
-          console.log(insertPlayer);
 
           return knex('players').insert(decamelizeKeys(insertPlayer), '*');
         })
@@ -70,6 +69,7 @@ router.post('/players', (req, res, next) => {
 
           delete player.hashedPassword;
 
+          console.log(player);
           res.send(player);
         })
         .catch((err) => {
@@ -91,7 +91,6 @@ router.get('/players/:id', (req, res, next) => {
     .then((row) => {
       if (!row) {
         throw boom.create(
-          404,
           'Not Found'
         );
       }

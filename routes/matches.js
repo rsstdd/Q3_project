@@ -40,11 +40,13 @@ router.get('/matches', (req, res, next) => {
 });
 
 router.get('/matches/:id', (req, res, next) => {
-  const { playerId } = Number.parseInt(req.body);
+  // const { playerId } = Number.parseInt(req.body);
 
-  if (Number.isNaN(playerId)) {
-    return next();
-  }
+  // if (Number.isNaN(playerId)) {
+  //   return next();
+  // }
+
+  const playerId = 4;
 
   knex('matches')
     .distinct('matches.id as match_id')

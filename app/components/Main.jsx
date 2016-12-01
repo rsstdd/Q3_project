@@ -40,72 +40,75 @@ const Main = React.createClass({
       password: '',
       age: '79',
       hometown: 'Cleveland',
-      avatarUrl: 'http://i.imgur.com/xvNsFDH.png'
+      imgUrl: 'http://i.imgur.com/xvNsFDH.png'
     };
   },
 
-  // handleAddPlayer(user) {
-  //   // this.setState ({
-  //   //   firstName: user.firstName,
-  //   //   lastName: user.lastName,
-  //   //   email: user.email,
-  //   //   password: user.password,
-  //   //   age: user.age,
-  //   //   hometown: user.hometown,
-  //   //   avatarUrl: user.avatarUrl
-  //   // })
-  // },
+  getNewUserInfo(user) {
+    this.setState({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      password: user.password,
+      age: user.age,
+      hometown: user.hometown,
+      imgUrl: user.imgUrl
+    });
+  },
 
   render() {
     return (
       <main>
         <Match pattern="/signup" render={
           () => <SignUp
-            handleAddPlayer={this.handleAddPlayer}
+            // getNewUserInfo={this.getNewUserInfo}
+            // playerId={this.props.playerId}
+            isLoggedIn={this.props.isLoggedIn}
+            playerId={this.props.playerId}
+            handleAuthPlayer={this.props.handleAuthPlayer}
           />
 
         }/>
         <Match pattern="/signin" component={SignIn} />
         <Match pattern="/profile" render={
           () => <Profile
-              {...this.state}
-            />
+            {...this.state}
+        />
 
         }/>
 
         <Match pattern="/" exactly render={
-          () => <div>
-            <Paper style={style} zDepth={1}>
+          () =>  <div>
+            <Paper
+              style={style} zDepth={1}
+            >
               <div>
                 <div>
                   <h2>Keep track of stats. Create an Account or Sign In to get started...</h2>
                 </div>
               </div>
-
-                <Paper
+              <Paper
                 style={buttonWrapper} zDepth={1}
-                >
-
-                  <div>
-                    <Link to='/signup'>
-                      <RaisedButton label="Create Account" />
-                    </Link>
-                  </div>
-                  <br />
-                  <div>
-                    <Link to='/signin'>
-                      <RaisedButton label="Sign In" />
-                    </Link>
-                  </div>
-
-                  </Paper>
-
+              >
+              <div>
+                <Link to='/signup'>
+                  <RaisedButton label="Create Account" />
+                </Link>
+              </div>
+              <br />
+              <div>
+                <Link to='/signin'>
+                  <RaisedButton label="Sign In" />
+                </Link>
+              </div>
               </Paper>
-            </div>
-        }/>
+            </Paper>
+          </div>
+          }
+        />
       </main>
     );
   }
-})
+});
 
 export default Main;
