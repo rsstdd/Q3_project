@@ -63,4 +63,10 @@ router.delete('/token', (req, res, _next) => {
   res.send(true);
 });
 
+router.get('/token', (req, res, next) => {
+  jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err) => {
+    res.send(!Boolean(err)); 
+  });
+})
+
 module.exports = router;

@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import axios from 'axios';
+
 
 import { Match, Link } from 'react-router';
 
@@ -33,6 +35,22 @@ const Profile = React.createClass({
       ],
       matches: []
     }
+  },
+
+  componentDidMount() {
+    axios.get('/api/matches/id', {
+      params: {
+        ID: this.props.playerId,
+      }
+    })
+      .then((res) => {
+        // this.setState({ isLoggedIn: res.data });
+        console.log(res);
+      })
+      .catch((err) => {
+        // this.setState({ loadErr: err });
+        console.log(err);
+      });
   },
 
   addNewMatchToHistory(addedMatch) {

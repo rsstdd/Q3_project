@@ -55,7 +55,8 @@ const SignUp = React.createClass({
       const playerId = response.data.id;
 
       this.props.handleAuthPlayer(true, playerId);
-      this.redirect('/profile/' + playerId)
+      // this.redirect('/profile/' + playerId)
+
     })
     .catch((error) => {
       console.log(error);
@@ -63,6 +64,9 @@ const SignUp = React.createClass({
   },
 
   render() {
+    
+
+
     return (<div>
       {/* <Match pattern="/profile" component={Profile} /> */}
       <Paper style={style} zDepth={1}>

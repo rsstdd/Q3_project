@@ -9,7 +9,7 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import Profile from './Profile';
 
-import { Match, Link } from 'react-router';
+import { Match, Link, Redirect } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const style = {
@@ -60,7 +60,7 @@ const Main = React.createClass({
     return (
       <main>
         <Match pattern="/signup" render={
-          () => <SignUp
+          () => this.props.isLoggedIn ? <Redirect to="/profile" /> : <SignUp
             // getNewUserInfo={this.getNewUserInfo}
             // playerId={this.props.playerId}
             isLoggedIn={this.props.isLoggedIn}
@@ -73,6 +73,7 @@ const Main = React.createClass({
         <Match pattern="/profile" render={
           () => <Profile
             {...this.state}
+            playerId={this.props.playerId}
         />
 
         }/>
