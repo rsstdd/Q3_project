@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Match, Link } from 'react-router';
 import { AutoComplete, Avatar, DatePicker, FlatButton, Paper, TextField, RaisedButton }  from 'material-ui/';
+import axios from 'axios';
 
 
 const matchContainerStyle = {
@@ -21,18 +22,49 @@ const buttonStyle = {margin: 12};
 
 const AddMatchToHistory = React.createClass({
   handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    console.log(e.target.player1Score.value)
+      let WinP1 = false;
+      let WinP2 = false;
+      if (this.props.score1 === this.props.score2) {
+        return -1;
+      } else {
+        this.props.score1 > this.props.score2 ? WinP1 = true : WinP2 = true;
+      }
 
-    this.props.addNewMatchToHistory({
-      player1Name: this.props.player1Name,
-      player1Score: this.props.player1Score,
-      player2Name: this.props.player2Name,
-      player2Score: this.props.player2Score,
-      date: this.props.player2Name
-     })
+    axios.post('/api/matches', {
+      p1Id: this.props.p1Id,
+      p2Id: this.props.p2Id,
+      scoreP1: this.props.scoreP1,
+      scoreP2: this.props.scoreP2,
+      winP1: WinP1,
+      winP2: WinP2,
+    })
+    .then((response) => {
+      console.log(response);
+      // const playerId = response.data.id;
+
+      // this.props.handleAuthPlayer(true, playerId);
+      // this.redirect('/profile/' + playerId)
+
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   },
+
+  //   e.preventDefault()
+  //
+  //   console.log(e.target.player1Score.value)
+  //
+  //   this.props.addNewMatchToHistory({
+  //     player1Name: this.props.player1Name,
+  //     player1Score: this.props.player1Score,
+  //     player2Name: this.props.player2Name,
+  //     player2Score: this.props.player2Score,
+  //     date: this.props.player2Name
+  //    })
+  // },
 
   // handleClick(event) {
   //   this.props.AddMatchToHistory({

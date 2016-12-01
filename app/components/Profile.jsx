@@ -18,11 +18,12 @@ const buttonStyle = {margin: 12};
 const Profile = React.createClass({
   getInitialState(){
     return {
-      player1Name: '',
-      player1Score: '',
-      player2Name: '',
-      player2Score: '',
-      date: '',
+      p1Id: '',
+      p2Id: '',
+      scoreP1: '',
+      scoreP2: '',
+      winP1: '',
+      winP2: '',
       players: [
         'Barack Obama',
         'Bernie Sanders',
