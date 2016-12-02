@@ -40,33 +40,71 @@ const SignUp = React.createClass({
   },
 
   handleSignUp(event) {
-    event.preventDefault();
-    axios.post('/api/players', {
-      email: this.state.firstName,
-      password: this.state.password,
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      age: this.state.age,
-      country: this.state.country,
-      bio: this.state.bio,
-      imgUrl: this.state.imgUrl
-    })
-    .then((response) => {
-      const playerId = response.data.id;
+    const email =  this.state.email,
+          password = this.state.password,
+          firstName = this.state.firstName,
+          lastName = this.state.lastName,
+          age = this.state.age,
+          country = this.state.country,
+          bio = this.state.bio,
+          imgUrl = this.state.imgUr;
 
-      this.props.handleAuthPlayer(true, playerId);
-      // this.redirect('/profile/' + playerId)
+    if (!firstName.trim()) {
+      alert('First name must not be blank');
+    }
+    if (!lastName.trim()) {
+      alert('Last name must not be blank');
+    }
+    // if (!email.trim()) {
+    //   alert('Email must not be blank.');
+    // }
+    // if (email.indexOf('@') > 0) {
+    //   alert('Email must be valid.');
+    // }
+    if (!password || password.length < 4) {
+      alert('Password must be valid.');
+    }
+    if (!country.trim()) {
+      alert('Country must not be blank.');
+    }
+    if (!bio.trim()) {
+      alert('Bio must not be blank.');
+    }
+    if (!password.trim() || password.length < 8) {
+      alert('Avatar Url must not be blank.');
+    }
 
+    axios.post('/api/players',
+    { email, password, firstName, lastName, age, country, bio, imgUrl
     })
-    .catch((error) => {
-      console.log(error);
-    });
+    .then((res) => {
+      // console.log(res.data, 'this is the data /api/players');
+      const newPlayer = res.data;
+      const id = res.data.id;
+      console.log(id);
+      this.props.handleSignUp(id)
+      return newPlayer;
+    })
+    .then((newPlayer) => {
+      axios.post('/token', { email, password })
+        .then((res) => {
+          console.log('*************');
+          const players = res.config;
+          console.log(players);
+          console.log('*************');
+          const playerId = players;
+          this.props.authenticated(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      })
+  .catch((err) => {
+      console.log(err);
+  });
   },
 
   render() {
-    
-
-
     return (<div>
       {/* <Match pattern="/profile" component={Profile} /> */}
       <Paper style={style} zDepth={1}>
@@ -77,7 +115,7 @@ const SignUp = React.createClass({
               name="firstName"
               onChange={this.handleChange}
               value={this.state.firstName}
-              // errorText="This field is required"
+              errorText="This field is required"
             />
             <br />
             <TextField
@@ -85,14 +123,14 @@ const SignUp = React.createClass({
               name="lastName"
               onChange={this.handleChange}
               value={this.state.lastName}
-              // errorText="The error text can be as long as you want, it will wrap."
+              errorText="The error text can be as long as you want, it will wrap."
             /><br />
             <TextField
               hintText="Email Address"
               name="email"
               onChange={this.handleChange}
               value={this.state.email}
-              // errorText="This field is required"
+              errorText="This field is required"
               // floatingLabelText="Floating Label Text"
             /><br />
             <TextField
@@ -101,17 +139,14 @@ const SignUp = React.createClass({
               name="password"
               onChange={this.handleChange}
               value={this.state.password}
-              // errorText="This field is required."
-              // floatingLabelText="MultiLine and FloatingLabel"
-              // multiLine={true}
-              // rows={2}
+              errorText="This field is required."
             /><br />
               <TextField
                 hintText="Age"
                 name="age"
                 onChange={this.handleChange}
                 value={this.state.age}
-                // errorText="This field is required"
+                errorText="This field is required"
               />
               <br />
               <TextField
@@ -119,23 +154,21 @@ const SignUp = React.createClass({
                 name="country"
                 onChange={this.handleChange}
                 value={this.state.country}
-                // errorText="The error text can be as long as you want, it will wrap."
+                errorText="The error text can be as long as you want, it will wrap."
               /><br />
               <TextField
                 hintText="What's your story? Write your bio here"
                 name="bio"
                 onChange={this.handleChange}
                 value={this.state.bio}
-                // errorText="This field is required"
-                // floatingLabelText="Floating Label Text"
+                errorText="This field is required"
               /><br />
               <TextField
                 hintText="Avatar URL (for profile pic)"
                 name="imgUrl"
                 onChange={this.handleChange}
                 value={this.state.imgUrl}
-                // errorText="This field is required"
-                // floatingLabelText="Floating Label Text"
+                errorText="This field is required"
               /><br />
 
           <div>
@@ -149,7 +182,7 @@ const SignUp = React.createClass({
           </div>
         </div>
       </Paper>
-          </div>
+        </div>
     )}
 });
 

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
 
-
 import { Match, Link } from 'react-router';
 
 import { AutoComplete, Avatar, DatePicker, FlatButton, Paper, TextField, RaisedButton }  from 'material-ui/';
@@ -16,7 +15,7 @@ import MatchTable from './MatchTable';
 const buttonStyle = {margin: 12};
 
 const Profile = React.createClass({
-  getInitialState(){
+  getInitialState() {
     return {
       p1Id: '',
       p2Id: '',
@@ -25,29 +24,13 @@ const Profile = React.createClass({
       winP1: '',
       winP2: '',
       players: [],
-      matches: []
-    }
-  },
-
-  componentDidMount() {
-    axios.get('/api/matches', {
-      params: {
-        id: this.props.playerId
-      }
-    })
-      .then((res) => {
-        // this.setState({ isLoggedIn: res.data });
-        console.log(res);
-      })
-      .catch((err) => {
-        // this.setState({ loadErr: err });
-        console.log(err);
-      });
+      AutoMatches: []
+    };
   },
 
   addNewMatchToHistory(addedMatch) {
     this.setState({
-      matches: this.state.matches.concat(
+      AutoMatches: this.props.matches.concat(
         {
           player1Name: addedMatch.player1Name,
           player1Score: addedMatch.player1Score,
@@ -56,36 +39,24 @@ const Profile = React.createClass({
           date: addedMatch.date
         }
       )
-
-
-      // player1Name: addedMatch.player1Name,
-      // player1Score: addedMatch.player1Score,
-      // player2Name: addedMatch.player2Name,
-      // player2Score: addedMatch.player2Score,
-      // date: addedMatch.date
-
-      // NEED Logic to determine if Player1 Won or Lost
-
-    })
+    });
   },
 
   render() {
     return <div>
       <Bio
-        firstName={this.props.firstName}
-        lastName={this.props.lastName}
-        age={this.props.age}
-        country={this.props.country}
-        bio={this.props.bio}
-        imgUrl={this.props.imgUrl}
+        matches={this.props.matches}
+        playerId={this.props.playerId}
       />
       <AddMatchToHistory
-        { ...this.state }
         addNewMatchToHistory={this.addNewMatchToHistory}
+        matches={this.props.matches}
+        players={this.props.players}
        />
       <MatchTable
-        matches={this.state.matches}
-        addNewMatchToHistory={this.addNewMatchToHistory}
+        Automatches={this.state.Automatches}
+        matches={this.props.matches}
+        players={this.props.players}
       />
     </div>
   }

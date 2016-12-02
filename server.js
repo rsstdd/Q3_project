@@ -32,24 +32,10 @@ const path = require('path');
 
 app.use(express.static(path.join('public')));
 
-// // This breaks the JSON from teh server
-// app.use((_req, res) => {
-//   res.sendFile(path.join(__dirname, 'public', 'index.html'));
-// });
-
-// CSRF protection
-// app.use('/*', (req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Credentials', 'true');
-//   res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
-//   res.header('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
-//   next();
-// });
-
 const players = require('./routes/players');
 const matches = require('./routes/matches');
 const token = require('./routes/token');
-
+console.log('####### SERVER ####### BLAH ########');
 app.use('/api', players);
 app.use('/api', matches);
 app.use('/api', token);

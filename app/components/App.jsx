@@ -13,9 +13,11 @@ const App = React.createClass({
 
   getInitialState() {
     return {
+
       isLoggedIn: false,
 
       playerId: 0
+
     };
   },
 
@@ -23,25 +25,36 @@ const App = React.createClass({
     axios.get('/api/token')
       .then((res) => {
         this.setState({ isLoggedIn: res.data });
+        console.log(res.data);
       })
       .catch((err) => {
         this.setState({ loadErr: err });
       });
   },
 
-  handleAuthPlayer(bool, playerId) {
-    this.setState({ isLoggedIn: bool });
+  handleSignUpPlayer(playerId) {
     this.setState({ playerId: playerId });
+    this.setState({ isLoggedIn: true });
+  },
+
+  handleSignInPlayer(playerId) {
+    this.setState({ playerId: playerId });
+    this.setState({ isLoggedIn: true });
   },
 
   render() {
+    // console.log(this.state.isLoggedIn);
+    // console.log(this.state.playerId);
+
     return (
       <BrowserRouter >
         <div>
           <Header />
           <Main
-            handleAuthPlayer={this.handleAuthPlayer}
-            {...this.state}
+            handleSignUpPlayer={this.handleSignUpPlayer}
+            handleSignInPlayer={this.handleSignInPlayer}
+            isLoggedIn={this.state.isLoggedIn}
+            playerId={this.state.playerId}
           />
         </div>
       </BrowserRouter>

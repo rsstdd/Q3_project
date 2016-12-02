@@ -8,33 +8,52 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 
 const smallAvatar = {
   display: 'flex',
-  // display: 'inline-block',
-  // justifyContent: 'space-around',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  marginTop: '10px'
+};
+
+const rows = {
+  paddingBottom: '10px'
+  // display: 'flex',
+  // justifyContent: 'center',
+  // alignItems: 'center',
+  // marginTop: '10px'
 };
 
 const MatchRow = React.createClass({
   render() {
-    console.log(this.props.matches);
+    //  const rows = this.props.matches.map((item) => {
+    //       return (
+    //         <TableRow style={rows}>
+    //           <TableRowColumn>
+    //             <Avatar
+    //               src={item.p1Img}
+    //               size={40}
+    //               style={smallAvatar}
+    //               />
+    //             </TableRowColumn>
+     //
+    //             <TableRowColumn>{item.p2FirstName} {item.p2LastName}</TableRowColumn>
+     //
+    //             <TableRowColumn>{(item.winP1) ? 'Win' : 'Loss'}</TableRowColumn>
+    //             <TableRowColumn>{Number.parseInt(item.scoreP1)} to {Number.parseInt(item.scoreP2)}</TableRowColumn>
+    //             <TableRowColumn> _ </TableRowColumn>
+    //             <TableRowColumn> _ </TableRowColumn>
+    //             <TableRowColumn> _ </TableRowColumn>
+     //
+    //             {/* <TableRowColumn>11/29/2016</TableRowColumn> */}
+    //             {/* <TableRowColumn>{Number.parseInt(props.matches.length)}</TableRowColumn> */}
+    //           </TableRow>
+    //         )
+    //       });
 
     return (
-
-      <TableRow>
-        <TableRowColumn>
-          <Avatar
-            src="http://i.imgur.com/Nk5SWmv.jpg"
-            size={40}
-            style={smallAvatar}
-            />
-        </TableRowColumn>
-        <TableRowColumn>Bernie Sanders</TableRowColumn>
-        <TableRowColumn>Lost</TableRowColumn>
-        <TableRowColumn>5 - 11</TableRowColumn>
-        <TableRowColumn>11/29/2016</TableRowColumn>
-        <TableRowColumn>7</TableRowColumn>
-      </TableRow>
-    )
+      <div>
+        {/* { rows } */}
+        loading....
+      </div>
+    );
   }
 });
 

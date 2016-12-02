@@ -17,11 +17,11 @@ const style = {
   width: 1350,
   margin: 20,
   textAlign: 'center',
-  // display: 'inline-block'
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center'
 };
+
 const buttonWrapper = {
   height: 140,
   width: 500,
@@ -41,17 +41,25 @@ const Main = React.createClass({
       age: '',
       country: '',
       bio: '',
-      imgUrl: ''
-
-
-      // firstName: 'Ping Pong',
-      // lastName: 'Lady',
-      // email: 'grandmapingpong@gmail.com',
-      // password: '',
-      // age: '79',
-      // hometown: 'Cleveland',
-      // imgUrl: 'http://i.imgur.com/xvNsFDH.png'
+      imgUrl: '',
+      matches: ''
     };
+  },
+
+  componentDidMount() {
+    axios.get('/matches/', {
+      params: {
+        id: this.props.playerId
+      }
+    })
+    .then((res) => {
+      const matchesData = res.data;
+
+      this.setState({ matches: matchesData });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   },
 
   getNewUserInfo(user) {
@@ -70,28 +78,28 @@ const Main = React.createClass({
   render() {
     return (
       <main>
-        <Match pattern="/signup" render={
-          () => this.props.isLoggedIn ? <Redirect to="/profile" /> : <SignUp
-            // getNewUserInfo={this.getNewUserInfo}
-            // playerId={this.props.playerId}
+          <Match pattern="/signup" render={
+            () => this.props.isLoggedIn ? <Redirect to="/profile" /> : <SignUp
+              handleSignUpPlayer={this.props.handleSignUpPlayer}
+              isLoggedIn={this.props.isLoggedIn}
+              playerId={this.props.playerId}
+            />
+        }/>
+
+        <Match pattern="/signin" render={
+          () => this.props.isLoggedIn ? <Redirect to="/profile" /> : <SignIn
+            handleSignInPlayer={this.props.handleSignInPlayer}
             isLoggedIn={this.props.isLoggedIn}
             playerId={this.props.playerId}
-            handleAuthPlayer={this.props.handleAuthPlayer}
           />
-
         }/>
-        <Match pattern="/signin" component={SignIn} />
-        <Match pattern="/profile" render={
-          () => <Profile
-            firstName={this.state.firstName}
-            lastName={this.state.lastName}
-            age={this.state.age}
-            country={this.state.country}
-            bio={this.state.bio}
-            imgUrl={this.state.imgUrl}
-            playerId={this.props.playerId}
-        />
 
+        <Match pattern="/profile" render={
+          () => this.props.isLoggedIn ? <Redirect to="/" /> : <Profile
+            matches={this.state.matches}
+            players={this.state.players}
+            playerId={this.props.playerId}
+          />
         }/>
 
         <Match pattern="/" exactly render={

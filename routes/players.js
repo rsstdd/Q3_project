@@ -65,11 +65,11 @@ router.post('/players', (req, res, next) => {
           return knex('players').insert(decamelizeKeys(insertPlayer), '*');
         })
         .then((rows) => {
-          const player = camelizeKeys(rows[0]);
-
+          // console.log('######## players ######### blah ############### players');
+          // console.log(rows[0]);
+          const player = camelizeKeys(rows);
+          console.log(player, 'this is my player log');
           delete player.hashedPassword;
-
-          console.log(player);
           res.send(player);
         })
         .catch((err) => {

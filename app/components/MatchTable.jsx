@@ -12,12 +12,12 @@ const containerStyle = {
   height: 400,
   width: 950,
   margin: '10px auto 0 auto',
+  paddingTop: '100px',
   textAlign: 'center',
-  // display: 'inline-block',
   display: 'flex',
-  // justifyContent: 'space-around',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  marginTop: '200px'
 };
 
 const MatchTable = React.createClass({
@@ -31,13 +31,12 @@ const MatchTable = React.createClass({
               <TableHeaderColumn>Opponent</TableHeaderColumn>
               <TableHeaderColumn>Status</TableHeaderColumn>
               <TableHeaderColumn>Score</TableHeaderColumn>
-              <TableHeaderColumn>Date</TableHeaderColumn>
-              <TableHeaderColumn>Match Count</TableHeaderColumn>
-            </TableRow>
+            </TableRow> 
           </TableHeader>
-          <TableBody displayRowCheckbox={false}>
+          <TableBody displayRowCheckbox={false} adjustForCheckbox={false}>
             <MatchRow
               matches={this.props.matches}
+              players={this.props.players}
             />
           </TableBody>
         </Table>
