@@ -24,16 +24,7 @@ const Profile = React.createClass({
       scoreP2: '',
       winP1: '',
       winP2: '',
-      players: [
-        'Barack Obama',
-        'Bernie Sanders',
-        'Bill Bob',
-        'Ping Pong Lady',
-        'Bill Gates',
-        'Steve Brown',
-        'Tyler Miller',
-        'Stephanie Sanders'
-      ],
+      players: [],
       matches: []
     }
   },
@@ -81,7 +72,12 @@ const Profile = React.createClass({
   render() {
     return <div>
       <Bio
-          {...this.props}
+        firstName={this.props.firstName}
+        lastName={this.props.lastName}
+        age={this.props.age}
+        country={this.props.country}
+        bio={this.props.bio}
+        imgUrl={this.props.imgUrl}
       />
       <AddMatchToHistory
         { ...this.state }

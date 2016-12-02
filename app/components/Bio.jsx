@@ -41,7 +41,7 @@ const Bio = React.createClass({
           <Paper style={imgContainer} zDepth={0}>
             <div>
               <Avatar
-                src={this.props.avatarUrl}
+                src={this.props.imgUrl}
                 size={230}
                 style={avStyle}
                 />
@@ -50,8 +50,9 @@ const Bio = React.createClass({
 
           <div>
             <h1>{`${this.props.firstName} ${this.props.lastName}`}</h1>
-            <h3>Hometown: {this.props.hometown}</h3>
+            <h3>Country: {this.props.country}</h3>
             <h3>Age: {this.props.age}</h3>
+            <h3>Bio: {this.props.bio}</h3>
           </div>
         </Paper>
       </div>

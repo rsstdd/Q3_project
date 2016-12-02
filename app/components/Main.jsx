@@ -34,24 +34,35 @@ const buttonWrapper = {
 const Main = React.createClass({
   getInitialState() {
     return {
-      firstName: 'Ping Pong',
-      lastName: 'Lady',
-      email: 'grandmapingpong@gmail.com',
+      email: '',
       password: '',
-      age: '79',
-      hometown: 'Cleveland',
-      imgUrl: 'http://i.imgur.com/xvNsFDH.png'
+      firstName: '',
+      lastName: '',
+      age: '',
+      country: '',
+      bio: '',
+      imgUrl: ''
+
+
+      // firstName: 'Ping Pong',
+      // lastName: 'Lady',
+      // email: 'grandmapingpong@gmail.com',
+      // password: '',
+      // age: '79',
+      // hometown: 'Cleveland',
+      // imgUrl: 'http://i.imgur.com/xvNsFDH.png'
     };
   },
 
   getNewUserInfo(user) {
     this.setState({
-      firstName: user.firstName,
-      lastName: user.lastName,
       email: user.email,
       password: user.password,
+      firstName: user.firstName,
+      lastName: user.lastName,
       age: user.age,
-      hometown: user.hometown,
+      country: user.country,
+      bio: user.bio,
       imgUrl: user.imgUrl
     });
   },
@@ -72,7 +83,12 @@ const Main = React.createClass({
         <Match pattern="/signin" component={SignIn} />
         <Match pattern="/profile" render={
           () => <Profile
-            {...this.state}
+            firstName={this.state.firstName}
+            lastName={this.state.lastName}
+            age={this.state.age}
+            country={this.state.country}
+            bio={this.state.bio}
+            imgUrl={this.state.imgUrl}
             playerId={this.props.playerId}
         />
 
