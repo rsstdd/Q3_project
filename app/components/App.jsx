@@ -18,7 +18,9 @@ const App = React.createClass({
 
       playerId: 0,
 
-      players: []
+      players: [],
+
+      player: []
 
     };
   },
@@ -69,6 +71,16 @@ const App = React.createClass({
 
         this.setState({ players: player });
       })
+      .then((id) => {
+        console.log(id);
+        axios.get(`api/player/${this.state.playerId}`)
+          .then((res) => {
+            console.log("########## HANDLE GET USER ID ########");
+            const player = res.data;
+            console.log(player);
+            this.setState({ player: player });
+          })
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -78,6 +90,7 @@ const App = React.createClass({
     console.log(this.state.isLoggedIn, 'isLoggedIn');
     console.log(this.state.playerId, 'playerId');
     console.log(this.state.players, 'players');
+    console.log(this.state.player, 'player');
 
     return (
       <BrowserRouter >
@@ -88,7 +101,9 @@ const App = React.createClass({
             handleSignUpPlayer={this.handleSignUpPlayer}
             handleGetUserId={this.handleGetUserId}
             isLoggedIn={this.state.isLoggedIn}
+            player={this.state.player}
             playerId={this.state.playerId}
+            players={this.state.players}
           />
         </div>
       </BrowserRouter>

@@ -40,11 +40,12 @@ router.get('/matches', (req, res, next) => {
 });
 
 //authorize,
-router.get(`/matches/:id'`, (req, res, next) => {
-  // console.log('####### GET MATCHES/ID ########');
-  // const { userId } = Number.parseInt(req.params.id);
+router.get(`/matches/:id`, (req, res, next) => {
+  // Gets the specific matches that include the player id
+  console.log('####### GET MATCHES/ID ########');
+  const playerId  = Number.parseInt(req.params.id);
   // // console.log(req.token);
-  // console.log(userId);
+  console.log(playerId);
   // if (Number.isNaN(playerId)) {
   //   return next();
   // }

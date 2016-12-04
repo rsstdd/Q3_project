@@ -49,9 +49,11 @@ const Main = React.createClass({
   componentDidMount() {
     axios.get(`/api/matches/${this.props.playerId}`)
     .then((res) => {
+      console.log('####### main /api/mathces/id ########');
+
       const matchesData = res.data;
 
-      console.log(matchesData);
+      console.log(res);
 
       this.setState({ matches: matchesData });
     })
@@ -74,6 +76,7 @@ const Main = React.createClass({
   },
 
   render() {
+    // console.log(this.state.matches);
     return (
       <main>
           <Match pattern="/signup" render={
@@ -98,10 +101,11 @@ const Main = React.createClass({
         />
 
         <Match pattern="/profile" render={
-          () => this.props.isLoggedIn ? <Redirect to="/profile" /> : <Profile
+          () => this.props.id > 0 ? <Redirect to="/profile" /> : <Profile
             matches={this.state.matches}
             playerId={this.props.playerId}
-            players={this.state.players}
+            player={this.props.player}
+            players={this.props.players}
           />
           }
         />

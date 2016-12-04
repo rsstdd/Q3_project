@@ -31,28 +31,31 @@ const avStyle = {
 const Bio = React.createClass({
 
   render() {
-    if (this.props.matches[0]) {
-      return  <div>
-         <Paper style={containerStyle} zDepth={1}>
+    if (this.props.player) {
+      return (
+        <div>
+          <Paper style={containerStyle} zDepth={1}>
             <Paper style={imgContainer} zDepth={0}>
               <div>
                 <Avatar
-                  src={this.props.matches[0].p1Img}
+                  src={this.props.player.imgUrl}
                   size={230}
                   style={avStyle}
-                  />
+                />
               </div>
             </Paper>
 
             <div>
-              <h1>{`${this.props.matches[0].p1FirstName} ${this.props.matches[0].p1LastName}`}</h1>
-              <h3>Country: {this.props.matches[0].p1Country}</h3>
-              <h3>Age: {this.props.matches[0].p1FirstName}</h3>
-              <h3>Bio: {this.props.matches[0].p1Bio}</h3>
+              <h1>{`${this.props.player.firstName} ${this.props.player.lastName}`}</h1>
+              <h3>Country: {this.props.player.country}</h3>
+              <h3>Age: {this.props.player.age}</h3>
+              <h3>Bio: {this.props.player.bio}</h3>
             </div>
           </Paper>
         </div>
+      );
     }
+
     return <div style={containerStyle}>Loading...</div>;
   }
 });

@@ -77,15 +77,16 @@ router.post('/players', (req, res, next) => {
     });
 });
 
-router.get('/players/:id', (req, res, next) => {
+router.get('/player/:id', (req, res, next) => {
   const id = Number.parseInt(req.params.id);
+  console.log('######################## router/players #######################');
 
   if (Number.isNaN(id)) {
     return next();
   }
 
   knex('players')
-    .where('id', req.params.id)
+    .where('id', id)
     .first()
     .then((row) => {
       if (!row) {
@@ -94,9 +95,9 @@ router.get('/players/:id', (req, res, next) => {
         );
       }
 
-      const player = camelizeKeys(row);
+      const players = camelizeKeys(row);
 
-      res.send(player);
+      res.send(players);
     })
     .catch((err) => {
       next(err);

@@ -30,28 +30,30 @@ const Profile = React.createClass({
     this.setState({
       AutoMatches: this.props.matches.concat(
         {
-          player1Name: addedMatch.player1Name,
+          player1Name: this.props.firstName,
           player1Score: addedMatch.player1Score,
           player2Name: addedMatch.player2Name,
-          player2Score: addedMatch.player2Score,
-          date: addedMatch.date
+          player2Score: addedMatch.player2Score
         }
       )
     });
   },
 
   render() {
-    console.log(this.state.p1Id, 'profile');
+    // console.log(this.props.p1Id, 'profile');
     return <div>
       <Bio
         matches={this.props.matches}
         playerId={this.props.playerId}
+        player={this.props.player}
+        players={this.props.players}
       />
       <AddMatchToHistory
         addNewMatchToHistory={this.addNewMatchToHistory}
         matches={this.props.matches}
+        player={this.props.player}
         players={this.props.players}
-       />
+      />
       <MatchTable
         Automatches={this.state.Automatches}
         matches={this.props.matches}
