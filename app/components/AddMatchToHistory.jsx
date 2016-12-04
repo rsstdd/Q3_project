@@ -21,33 +21,33 @@ const buttonStyle = {
 };
 
 const AddMatchToHistory = React.createClass({
-//   handleSubmit(e) {
-//     e.preventDefault();
-//
-//     let WinP1 = false;
-//     let WinP2 = false;
-//
-//     if (this.props.score1 === this.props.score2) {
-//       return -1;
-//     } else {
-//       this.props.score1 > this.props.score2 ? WinP1 = true : WinP2 = true;
-//     }
-  //
-  //   axios.post('/api/matches', {
-  //     p1Id: this.props.p1Id,
-  //     p2Id: this.props.p2Id,
-  //     scoreP1: this.props.scoreP1,
-  //     scoreP2: this.props.scoreP2,
-  //     winP1: WinP1,
-  //     winP2: WinP2,
-  //   })
-  //   .then((response) => {
-  //     console.log(response);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
-  // },
+  handleSubmit(e) {
+    e.preventDefault();
+
+    let WinP1 = false;
+    let WinP2 = false;
+
+    if (this.props.score1 === this.props.score2) {
+      return -1;
+    } else {
+      this.props.score1 > this.props.score2 ? WinP1 = true : WinP2 = true;
+    }
+
+    axios.post('/api/matches', {
+      p1Id: this.props.p1Id,
+      p2Id: this.props.p2Id,
+      scoreP1: this.props.scoreP1,
+      scoreP2: this.props.scoreP2,
+      winP1: WinP1,
+      winP2: WinP2,
+    })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  },
 
   render() {
     // console.log('add to match');

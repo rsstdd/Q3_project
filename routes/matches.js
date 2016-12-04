@@ -44,18 +44,16 @@ router.get(`/matches/:id`, (req, res, next) => {
   // Gets the specific matches that include the player id
   console.log('####### GET MATCHES/ID ########');
   const playerId  = Number.parseInt(req.params.id);
-  // // console.log(req.token);
-  console.log(playerId);
+
   // if (Number.isNaN(playerId)) {
   //   return next();
   // }
-  // const playerId = 1;
 
   knex('matches')
     .distinct('matches.id as match_id')
     .select('matches.p1_id', 'matches.p2_id', 'matches.score_p1', 'matches.score_p2', 'matches.win_p1', 'matches.win_p2')
     .select('p1.first_name as p1_first_name', 'p1.last_name as p1_last_name', 'p1.country as p1_country', 'p1.img_url as p1_img', 'p1.age as p1_age', 'p1.bio as p1_bio')
-    .select('p2.first_name as p2_first_name', 'p2.last_name as  p2_last_name', 'p2.country as p2_country', 'p2.age as p2_age', 'p2.bio as p2_bio')
+    .select('p2.first_name as p2_first_name', 'p2.last_name as  p2_last_name', 'p2.country as p2_country', 'p2.img_url as p2_img', 'p2.age as p2_age', 'p2.bio as p2_bio')
     .innerJoin('players as p1', 'p1.id', 'matches.p1_id')
     .innerJoin('players as p2', 'p2.id', 'matches.p2_id')
     .where('matches.p1_id', playerId)

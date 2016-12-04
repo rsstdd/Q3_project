@@ -14,7 +14,7 @@ const smallAvatar = {
 };
 
 const rows = {
-  paddingBottom: '10px'
+  // paddingBottom: '10px'
   // display: 'flex',
   // justifyContent: 'center',
   // alignItems: 'center',
@@ -23,30 +23,37 @@ const rows = {
 
 const MatchRow = React.createClass({
   render() {
-     const rows = this.props.matches.map((item) => {
+    console.log(this.props.matches, 'match row');
+     const rows = this.props.matches.map((match) => {
+       console.log(match);
       return (
         <TableRow
+          key={match.index}
           style={rows}
-          key={item.index}
           >
+        <TableRowColumn>
+          <Avatar
+            src={match.p1Img}
+            size={40}
+            style={smallAvatar}
+          />
+          </TableRowColumn>
+          <TableRowColumn>{match.p1FirstName} {match.p1LastName}</TableRowColumn>
+          <TableRowColumn />
+          <TableRowColumn>{match.winP1 ? 'Win' : 'Loss'}</TableRowColumn>
+          <TableRowColumn />
+          <TableRowColumn>{Number.parseInt(match.scoreP1)}</TableRowColumn>
+          <TableRowColumn />
+          <TableRowColumn />
+          <TableRowColumn>{Number.parseInt(match.scoreP2)}</TableRowColumn>
+          <TableRowColumn>{match.p2FirstName} {match.p2LastName}</TableRowColumn>
           <TableRowColumn>
             <Avatar
-              src={item.p1Img}
+              src={match.p2Img}
               size={40}
               style={smallAvatar}
-              />
-            </TableRowColumn>
-
-            <TableRowColumn>{item.p2FirstName} {item.p2LastName}</TableRowColumn>
-
-            <TableRowColumn>{(item.winP1) ? 'Win' : 'Loss'}</TableRowColumn>
-            <TableRowColumn>{Number.parseInt(item.scoreP1)} to {Number.parseInt(item.scoreP2)}</TableRowColumn>
-            <TableRowColumn> _ </TableRowColumn>
-            <TableRowColumn> _ </TableRowColumn>
-            <TableRowColumn> _ </TableRowColumn>
-
-          {/* <TableRowColumn>11/29/2016</TableRowColumn> */}
-          {/* <TableRowColumn>{Number.parseInt(props.matches.length)}</TableRowColumn> */}
+            />
+          </TableRowColumn>
         </TableRow>
       );
      });

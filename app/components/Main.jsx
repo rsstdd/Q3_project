@@ -41,42 +41,26 @@ const Main = React.createClass({
       age: '',
       country: '',
       bio: '',
-      imgUrl: '',
-      matches: []
+      imgUrl: ''
+
     };
   },
 
-  componentDidMount() {
-    axios.get(`/api/matches/${this.props.playerId}`)
-    .then((res) => {
-      console.log('####### main /api/mathces/id ########');
-
-      const matchesData = res.data;
-
-      console.log(res);
-
-      this.setState({ matches: matchesData });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  },
-
-  getNewUserInfo(user) {
-    this.setState({
-      email: user.email,
-      password: user.password,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      age: user.age,
-      country: user.country,
-      bio: user.bio,
-      imgUrl: user.imgUrl
-    });
-  },
+  // getNewUserInfo(user) {
+  //   this.setState({
+  //     email: user.email,
+  //     password: user.password,
+  //     firstName: user.firstName,
+  //     lastName: user.lastName,
+  //     age: user.age,
+  //     country: user.country,
+  //     bio: user.bio,
+  //     imgUrl: user.imgUrl
+  //   });
+  // },
 
   render() {
-    // console.log(this.state.matches);
+    console.log(this.state.matches, 'Main.jsx');
     return (
       <main>
           <Match pattern="/signup" render={
@@ -102,7 +86,7 @@ const Main = React.createClass({
 
         <Match pattern="/profile" render={
           () => this.props.id > 0 ? <Redirect to="/profile" /> : <Profile
-            matches={this.state.matches}
+            matches={this.props.matches}
             playerId={this.props.playerId}
             player={this.props.player}
             players={this.props.players}

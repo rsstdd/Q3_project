@@ -22,16 +22,20 @@ const containerStyle = {
 
 const MatchTable = React.createClass({
   render() {
+    // console.log(this.props.matches, 'matchtable');
     return (
       <Paper style={containerStyle} zDepth={1}>
         <Table>
           <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
             <TableRow>
-              <TableHeaderColumn></TableHeaderColumn>
-              <TableHeaderColumn>Opponent</TableHeaderColumn>
-              <TableHeaderColumn>Status</TableHeaderColumn>
-              <TableHeaderColumn>Score</TableHeaderColumn>
-            </TableRow> 
+              <TableHeaderColumn />
+              <TableHeaderColumn>Player 1</TableHeaderColumn>
+              <TableHeaderColumn>Match Result</TableHeaderColumn>
+              <TableHeaderColumn>Player 1 Score </TableHeaderColumn>
+              <TableHeaderColumn>Player 2 Score </TableHeaderColumn>
+              <TableHeaderColumn>Player 2</TableHeaderColumn>
+              <TableHeaderColumn />
+            </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false} adjustForCheckbox={false}>
             <MatchRow
@@ -41,7 +45,7 @@ const MatchTable = React.createClass({
           </TableBody>
         </Table>
       </Paper>
-    )
+    );
   }
 });
 

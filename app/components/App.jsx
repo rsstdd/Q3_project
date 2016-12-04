@@ -20,7 +20,9 @@ const App = React.createClass({
 
       players: [],
 
-      player: []
+      player: [],
+
+      matches: []
 
     };
   },
@@ -51,8 +53,6 @@ const App = React.createClass({
           return obj.email === email;
         })[0].id;
 
-        console.log(id);
-
         this.setState({ isLoggedIn: true });
         this.setState({ playerId: id });
 
@@ -71,14 +71,29 @@ const App = React.createClass({
 
         this.setState({ players: player });
       })
-      .then((id) => {
-        console.log(id);
+      .then(() => {
         axios.get(`api/player/${this.state.playerId}`)
           .then((res) => {
-            console.log("########## HANDLE GET USER ID ########");
-            const player = res.data;
-            console.log(player);
+            let { email, password, firstName, lastName, age, country, bio, imgUrl } = res.data;
+            const player = { email, password, firstName, lastName, age, country, bio, imgUrl }
+
             this.setState({ player: player });
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .then(() => {
+            axios.get(`/api/matches/${this.state.playerId}`)
+            .then((res) => {
+              console.log('####### app /api/mathces/id ########');
+
+              const matchesData = res.data;
+
+              this.setState({ matches: matchesData });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
           })
       })
       .catch((err) => {
@@ -87,10 +102,11 @@ const App = React.createClass({
   },
 
   render() {
-    console.log(this.state.isLoggedIn, 'isLoggedIn');
-    console.log(this.state.playerId, 'playerId');
-    console.log(this.state.players, 'players');
-    console.log(this.state.player, 'player');
+    // console.log(this.state.isLoggedIn, 'isLoggedIn');
+    // console.log(this.state.playerId, 'playerId');
+    // console.log(this.state.players, 'players');
+    // console.log(this.state.player, 'player');
+    // console.log(this.state.matches, 'matches - app');
 
     return (
       <BrowserRouter >
@@ -101,6 +117,7 @@ const App = React.createClass({
             handleSignUpPlayer={this.handleSignUpPlayer}
             handleGetUserId={this.handleGetUserId}
             isLoggedIn={this.state.isLoggedIn}
+            matches={this.state.matches}
             player={this.state.player}
             playerId={this.state.playerId}
             players={this.state.players}
