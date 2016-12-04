@@ -45,7 +45,7 @@ const SignUp = React.createClass({
       country = this.state.country,
       email = this.state.email,
       firstName = this.state.firstName,
-      imgUrl = this.state.imgUr,
+      imgUrl = this.state.imgUrl,
       lastName = this.state.lastName,
       password = this.state.password;
 
@@ -78,21 +78,16 @@ const SignUp = React.createClass({
       { email, password, firstName, lastName, age, country, bio, imgUrl
       })
     .then((res) => {
-      console.log(res.data[0], 'this is the data /api/players');
-
       const newPlayer = res.data[0];
       const id = res.data[0].id;
 
-      console.log(id, 'this is supposed to be the newPlayer id');
-
-      this.props.handleSignUpPlayer(id);
+      // this.props.handleSignUpPlayer(id);
 
       return newPlayer;
     })
     .then((newPlayer) => {
       axios.post('/token', { email, password })
         .then((res) => {
-          console.log('***** POST TOKEN ********');
 
           this.props.handleAuthenticateUser(true);
           this.props.handleGetUserId(email);

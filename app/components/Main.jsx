@@ -42,18 +42,16 @@ const Main = React.createClass({
       country: '',
       bio: '',
       imgUrl: '',
-      matches: ''
+      matches: []
     };
   },
 
   componentDidMount() {
-    axios.get('/matches/', {
-      params: {
-        id: this.props.playerId
-      }
-    })
+    axios.get(`/api/matches/${this.props.playerId}`)
     .then((res) => {
       const matchesData = res.data;
+
+      console.log(matchesData);
 
       this.setState({ matches: matchesData });
     })
@@ -81,6 +79,7 @@ const Main = React.createClass({
           <Match pattern="/signup" render={
             () => this.props.isLoggedIn ? <Redirect to="/profile" /> : <SignUp
               handleAuthenticateUser={this.props.handleAuthenticateUser}
+              handleSignUpPlayer={this.props.handleSignUpPlayer}
               handleGetUserId={this.props.handleGetUserId}
               isLoggedIn={this.props.isLoggedIn}
               playerId={this.props.playerId}
@@ -99,7 +98,7 @@ const Main = React.createClass({
         />
 
         <Match pattern="/profile" render={
-          () => this.props.playerId === 0 ? <Redirect to="/" /> : <Profile
+          () => this.props.isLoggedIn ? <Redirect to="/profile" /> : <Profile
             matches={this.state.matches}
             playerId={this.props.playerId}
             players={this.state.players}

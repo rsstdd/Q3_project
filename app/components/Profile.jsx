@@ -17,32 +17,31 @@ const buttonStyle = {margin: 12};
 const Profile = React.createClass({
   getInitialState() {
     return {
-      p1Id: '',
       p2Id: '',
       scoreP1: '',
       scoreP2: '',
       winP1: '',
       winP2: '',
-      players: [],
       AutoMatches: []
     };
   },
 
-  // addNewMatchToHistory(addedMatch) {
-  //   this.setState({
-  //     AutoMatches: this.props.matches.concat(
-  //       {
-  //         player1Name: addedMatch.player1Name,
-  //         player1Score: addedMatch.player1Score,
-  //         player2Name: addedMatch.player2Name,
-  //         player2Score: addedMatch.player2Score,
-  //         date: addedMatch.date
-  //       }
-  //     )
-  //   });
-  // },
+  addNewMatchToHistory(addedMatch) {
+    this.setState({
+      AutoMatches: this.props.matches.concat(
+        {
+          player1Name: addedMatch.player1Name,
+          player1Score: addedMatch.player1Score,
+          player2Name: addedMatch.player2Name,
+          player2Score: addedMatch.player2Score,
+          date: addedMatch.date
+        }
+      )
+    });
+  },
 
   render() {
+    console.log(this.state.p1Id, 'profile');
     return <div>
       <Bio
         matches={this.props.matches}

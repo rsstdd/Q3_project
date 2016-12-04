@@ -27,8 +27,6 @@ const App = React.createClass({
     axios.get('/api/token')
       .then((res) => {
         this.setState({ isLoggedIn: res.data });
-
-        // console.log(res.data);
       })
       .catch((err) => {
         this.setState({ loadErr: err });
@@ -39,6 +37,10 @@ const App = React.createClass({
     this.setState({ isLoggedIn: bool });
   },
 
+  handleSignUpPlayer(id) {
+    this.setState({ playerId: id });
+  },
+
   handleGetUserId(email) {
     axios.get('/api/players')
       .then((res) => {
@@ -47,7 +49,10 @@ const App = React.createClass({
           return obj.email === email;
         })[0].id;
 
+        console.log(id);
+
         this.setState({ isLoggedIn: true });
+        this.setState({ playerId: id });
 
         const player = players.map((obj) => {
           return {
@@ -69,13 +74,10 @@ const App = React.createClass({
       });
   },
 
-
   render() {
-    console.log('########## APP.JSX ##########');
     console.log(this.state.isLoggedIn, 'isLoggedIn');
     console.log(this.state.playerId, 'playerId');
     console.log(this.state.players, 'players');
-    console.log('##########**********##########');
 
     return (
       <BrowserRouter >
@@ -83,6 +85,7 @@ const App = React.createClass({
           <Header />
           <Main
             handleAuthenticateUser={this.handleAuthenticateUser}
+            handleSignUpPlayer={this.handleSignUpPlayer}
             handleGetUserId={this.handleGetUserId}
             isLoggedIn={this.state.isLoggedIn}
             playerId={this.state.playerId}
