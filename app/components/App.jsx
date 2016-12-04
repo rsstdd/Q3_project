@@ -16,7 +16,9 @@ const App = React.createClass({
 
       isLoggedIn: false,
 
-      playerId: 0
+      playerId: 0,
+
+      players: []
 
     };
   },
@@ -25,34 +27,63 @@ const App = React.createClass({
     axios.get('/api/token')
       .then((res) => {
         this.setState({ isLoggedIn: res.data });
-        console.log(res.data);
+
+        // console.log(res.data);
       })
       .catch((err) => {
         this.setState({ loadErr: err });
       });
   },
 
-  handleSignUpPlayer(playerId) {
-    this.setState({ playerId: playerId });
-    this.setState({ isLoggedIn: true });
+  handleAuthenticateUser(bool) {
+    this.setState({ isLoggedIn: bool });
   },
 
-  handleSignInPlayer(playerId) {
-    this.setState({ playerId: playerId });
-    this.setState({ isLoggedIn: true });
+  handleGetUserId(email) {
+    axios.get('/api/players')
+      .then((res) => {
+        const players = res.data;
+        const id = res.data.filter((obj) => {
+          return obj.email === email;
+        })[0].id;
+
+        this.setState({ isLoggedIn: true });
+
+        const player = players.map((obj) => {
+          return {
+            email: obj.email,
+            password: obj.password,
+            firstName: obj.firstName,
+            lastName: obj.lastName,
+            age: obj.age,
+            country: obj.country,
+            bio: obj.bio,
+            imgUrl: obj.imgUrl
+          };
+        });
+
+        this.setState({ players: player });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
+
 
   render() {
-    // console.log(this.state.isLoggedIn);
-    // console.log(this.state.playerId);
+    console.log('########## APP.JSX ##########');
+    console.log(this.state.isLoggedIn, 'isLoggedIn');
+    console.log(this.state.playerId, 'playerId');
+    console.log(this.state.players, 'players');
+    console.log('##########**********##########');
 
     return (
       <BrowserRouter >
         <div>
           <Header />
           <Main
-            handleSignUpPlayer={this.handleSignUpPlayer}
-            handleSignInPlayer={this.handleSignInPlayer}
+            handleAuthenticateUser={this.handleAuthenticateUser}
+            handleGetUserId={this.handleGetUserId}
             isLoggedIn={this.state.isLoggedIn}
             playerId={this.state.playerId}
           />

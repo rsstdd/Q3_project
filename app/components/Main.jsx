@@ -80,27 +80,32 @@ const Main = React.createClass({
       <main>
           <Match pattern="/signup" render={
             () => this.props.isLoggedIn ? <Redirect to="/profile" /> : <SignUp
-              handleSignUpPlayer={this.props.handleSignUpPlayer}
+              handleAuthenticateUser={this.props.handleAuthenticateUser}
+              handleGetUserId={this.props.handleGetUserId}
               isLoggedIn={this.props.isLoggedIn}
               playerId={this.props.playerId}
             />
-        }/>
+            }
+          />
 
         <Match pattern="/signin" render={
           () => this.props.isLoggedIn ? <Redirect to="/profile" /> : <SignIn
-            handleSignInPlayer={this.props.handleSignInPlayer}
+            handleAuthenticateUser={this.props.handleAuthenticateUser}
+            handleGetUserId={this.props.handleGetUserId}
             isLoggedIn={this.props.isLoggedIn}
             playerId={this.props.playerId}
           />
-        }/>
+          }
+        />
 
         <Match pattern="/profile" render={
-          () => this.props.isLoggedIn ? <Redirect to="/" /> : <Profile
+          () => this.props.playerId === 0 ? <Redirect to="/" /> : <Profile
             matches={this.state.matches}
-            players={this.state.players}
             playerId={this.props.playerId}
+            players={this.state.players}
           />
-        }/>
+          }
+        />
 
         <Match pattern="/" exactly render={
           () =>  <div>

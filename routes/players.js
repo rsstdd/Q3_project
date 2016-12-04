@@ -15,7 +15,7 @@ router.get('/players', (_req, res, next) => {
   knex('players')
     .orderBy('id')
     .then((rows) => {
-      const players = camelizeKeys(rows);
+      let players = camelizeKeys(rows);
 
       res.send(players);
     })
@@ -65,12 +65,11 @@ router.post('/players', (req, res, next) => {
           return knex('players').insert(decamelizeKeys(insertPlayer), '*');
         })
         .then((rows) => {
-          // console.log('######## players ######### blah ############### players');
-          // console.log(rows[0]);
-          const player = camelizeKeys(rows);
-          console.log(player, 'this is my player log');
-          delete player.hashedPassword;
-          res.send(player);
+          let players = camelizeKeys(rows);
+
+          delete players.hashedPassword;
+
+          res.send(players);
         })
         .catch((err) => {
           next(err);

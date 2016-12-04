@@ -16,8 +16,9 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.post('/api/token', (req, res, next) => {
+router.post('/api/token', authorize, (req, res, next) => {
   console.log('hello____GET___Token_________hello');
+  console.log('########### TOKEN USER ############');
 
   const { email, password } = req.body;
 
@@ -58,7 +59,9 @@ router.post('/api/token', (req, res, next) => {
       });
 
       res.send(user);
-      console.log(user);
+
+      console.log('########### TOKEN USER ############');
+      console.log(res.cookie);
     })
     .catch(bcrypt.MISMATCH_ERROR, () => {
       throw boom.create(400, 'Bad email or password');

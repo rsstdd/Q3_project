@@ -28,19 +28,19 @@ const Profile = React.createClass({
     };
   },
 
-  addNewMatchToHistory(addedMatch) {
-    this.setState({
-      AutoMatches: this.props.matches.concat(
-        {
-          player1Name: addedMatch.player1Name,
-          player1Score: addedMatch.player1Score,
-          player2Name: addedMatch.player2Name,
-          player2Score: addedMatch.player2Score,
-          date: addedMatch.date
-        }
-      )
-    });
-  },
+  // addNewMatchToHistory(addedMatch) {
+  //   this.setState({
+  //     AutoMatches: this.props.matches.concat(
+  //       {
+  //         player1Name: addedMatch.player1Name,
+  //         player1Score: addedMatch.player1Score,
+  //         player2Name: addedMatch.player2Name,
+  //         player2Score: addedMatch.player2Score,
+  //         date: addedMatch.date
+  //       }
+  //     )
+  //   });
+  // },
 
   render() {
     return <div>

@@ -3,6 +3,7 @@ module.exports = {
     'ryansobol/browser',
     'ryansobol/es6',
     'ryansobol/node',
+    'ryansobol/react',
     'ryansobol/express'
   ]
 };

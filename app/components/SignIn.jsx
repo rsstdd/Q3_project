@@ -32,38 +32,42 @@ const SignIn = React.createClass({
     this.setState(nextState);
   },
 
-  handleSignIn(event) {
+  handleSignIn(e) {
     console.log('####### SignIn CLIENT #######');
-    event.preventDefault();
+    e.preventDefault();
     const email = this.state.email;
     const password = this.state.password;
 
     if (!email) {
-        alert('Email must not be blank');
-      }
-      if (!password) {
-        alert('Password must not be blank');
-      }
+      alert('Email must not be blank');
+    }
+    if (!password) {
+      alert('Password must not be blank');
+    }
 
     axios.post('/api/token', {
       email,
       password
     })
     .then((res) => {
-      console.log(res);
-      const playerId = res.data.id;
-      console.log('@@@@@ playerId @@@@@');
-      console.log(playerId);
+      const playerJson = res.config.data;
+      const player = JSON.parse(playerJson)
+      const email = player.email;
 
-      this.props.handleSignInPlayer(res.data, playerId);
+      console.log(email, 'email - token');
+
+      this.props.handleAuthenticateUser(true);
+      this.props.handleGetUserId(email);
     })
     .catch((error) => {
       console.log(error);
+      this.props.handleAuthenticateUser(false);
     });
   },
 
   render() {
-    return (<div>
+    return (
+      <div>
         <div>
           <Paper style={style} zDepth={1}>
               <h1>Welcome Back. Please Sign In...</h1>
@@ -95,7 +99,8 @@ const SignIn = React.createClass({
           </Paper>
         </div>
     </div>
-    )}
+    )
+  }
 });
 
 export default SignIn;
