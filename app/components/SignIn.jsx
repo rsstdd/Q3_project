@@ -33,7 +33,6 @@ const SignIn = React.createClass({
   },
 
   handleSignIn(e) {
-    console.log('####### SignIn CLIENT #######');
     e.preventDefault();
     const email = this.state.email;
     const password = this.state.password;
@@ -53,8 +52,6 @@ const SignIn = React.createClass({
       const playerJson = res.config.data;
       const player = JSON.parse(playerJson)
       const email = player.email;
-
-      console.log(email, 'email - token');
 
       this.props.handleAuthenticateUser(true);
       this.props.handleGetUserId(email);

@@ -20,6 +20,8 @@ const App = React.createClass({
 
       players: [],
 
+      playerNames: [],
+
       player: [],
 
       matches: []
@@ -69,6 +71,11 @@ const App = React.createClass({
           };
         });
 
+        const playerNames = players.map((item) => {
+          return item.firstName
+        })
+
+        this.setState({ playerNames: playerNames });
         this.setState({ players: player });
       })
       .then(() => {
@@ -85,7 +92,6 @@ const App = React.createClass({
           .then(() => {
             axios.get(`/api/matches/${this.state.playerId}`)
             .then((res) => {
-              console.log('####### app /api/mathces/id ########');
 
               const matchesData = res.data;
 
@@ -106,7 +112,7 @@ const App = React.createClass({
     // console.log(this.state.playerId, 'playerId');
     // console.log(this.state.players, 'players');
     // console.log(this.state.player, 'player');
-    // console.log(this.state.matches, 'matches - app');
+    console.log(this.state.playerNames, ' - app');
 
     return (
       <BrowserRouter >
@@ -121,6 +127,7 @@ const App = React.createClass({
             player={this.state.player}
             playerId={this.state.playerId}
             players={this.state.players}
+            playerNames={this.state.playerNames}
           />
         </div>
       </BrowserRouter>

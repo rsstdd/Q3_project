@@ -23,25 +23,27 @@ const Profile = React.createClass({
       scoreP2: '',
       winP1: '',
       winP2: '',
-      AutoMatches: []
+      AutoMatches: [],
+      names: this.props.playerNames
     };
   },
 
-  // addNewMatchToHistory(addedMatch) {
-  //   this.setState({
-  //     AutoMatches: this.props.matches.concat(
-  //       {
-  //         player1Name: this.props.player.firstName,
-  //         player1Score: addedMatch.player1Score,
-  //         player2Name: addedMatch.player2Name,
-  //         player2Score: addedMatch.player2Score
-  //       }
-  //     )
-  //   });
-  // },
+  addNewMatchToHistory(addedMatch) {
+    this.setState({
+      AutoMatches: this.props.matches.concat(
+        {
+          player1Name: this.props.player.firstName,
+          player1Score: addedMatch.player1Score,
+          player2Name: addedMatch.player2Name,
+          player2Score: addedMatch.player2Score
+        }
+      )
+    });
+  },
 
   render() {
-    console.log(this.props.matches, 'profile');
+    console.log(this.props.playerNames, 'profile');
+    // console.log(this.props.matches, 'profile');
 
     return (
       <div>
@@ -55,6 +57,7 @@ const Profile = React.createClass({
           addNewMatchToHistory={this.addNewMatchToHistory}
           matches={this.props.matches}
           player={this.props.player}
+          playerNames={this.props.playerNames}
           players={this.props.players}
         />
         <MatchTable

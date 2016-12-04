@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Match, Link } from 'react-router';
-import { Avatar, DatePicker, FlatButton, Paper, TextField, RaisedButton }  from 'material-ui/';
+import { Avatar, DatePicker, AutoComplete, FlatButton, Paper, TextField, RaisedButton }  from 'material-ui/';
 // AutoComplete
 import axios from 'axios';
 
@@ -33,13 +33,15 @@ const AddMatchToHistory = React.createClass({
       this.props.score1 > this.props.score2 ? WinP1 = true : WinP2 = true;
     }
 
+    
+
     axios.post('/api/matches', {
-      p1Id: this.props.p1Id,
+      p1Id: this.props.player.id,
       p2Id: this.props.p2Id,
       scoreP1: this.props.scoreP1,
       scoreP2: this.props.scoreP2,
       winP1: WinP1,
-      winP2: WinP2,
+      winP2: WinP2
     })
     .then((response) => {
       console.log(response);
@@ -51,10 +53,11 @@ const AddMatchToHistory = React.createClass({
 
   render() {
     // console.log('add to match');
-    // console.log(this.props.matches);
-    // console.log(this.props.players);
+    // console.log(this.props.matches, 'props.matches');
+    // console.log(this.props.players, 'props.players');
+    // console.log(this.props.player, 'props.player');
 
-    // if (this.props.matches) {
+    if (this.props.matches) {
       return (
         <div>
           <Paper style={matchContainerStyle} zDepth={1}>
@@ -63,34 +66,29 @@ const AddMatchToHistory = React.createClass({
                 <h2>Add a Match to the History Books...</h2>
                 <div>
                   <h4>Player 1:
-                    {/* <AutoComplete
-                      // dataSource={this.props.matches}
-                      filter={AutoComplete.caseInsensitiveFilter}
-                      name="player1Name"
-                      // value={this.props.matches}
-                    /> */}
+                     { this.props.player.firstName} {this.props.player.lastName}
                   </h4>
                   <h4>Score:
                     <TextField
                       name="player1Score"
-                      // value={this.props.player1score}
+                      value={this.props.player1score}
                     />
                   </h4>
                 </div>
                 <h4>Vs.</h4>
                 <div>
                   <h4>Player 2:
-                    {/* <AutoComplete
-                      // dataSource={this.props.players}
+                    <AutoComplete
+                      dataSource={this.props.playerNames}
                       filter={AutoComplete.caseInsensitiveFilter}
                       name="player2Name"
-                      // value={this.props.player2Name}
-                    /> */}
+                      value={this.props.player2Name}
+                    />
                    </h4>
                   <h4>Score:
                     <TextField
                       name="player2Score"
-                      // value={this.props.player2score}
+                      value={this.props.player2score}
                     />
                    </h4>
                   {/* <div>
@@ -109,7 +107,7 @@ const AddMatchToHistory = React.createClass({
           </Paper>
         </div>
       );
-    // }
+    }
   }
 });
 

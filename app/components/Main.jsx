@@ -60,7 +60,7 @@ const Main = React.createClass({
   // },
 
   render() {
-    console.log(this.state.matches, 'Main.jsx');
+    // console.log(this.state.matches, 'Main.jsx');
     return (
       <main>
           <Match pattern="/signup" render={
@@ -90,6 +90,7 @@ const Main = React.createClass({
             playerId={this.props.playerId}
             player={this.props.player}
             players={this.props.players}
+            playerNames={this.props.playerNames}
           />
           }
         />

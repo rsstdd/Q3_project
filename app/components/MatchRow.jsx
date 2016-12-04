@@ -23,9 +23,7 @@ const rows = {
 
 const MatchRow = React.createClass({
   render() {
-    console.log(this.props.matches, 'match row');
      const rows = this.props.matches.map((match) => {
-       console.log(match);
       return (
         <TableRow
           key={match.index}
@@ -33,8 +31,8 @@ const MatchRow = React.createClass({
           >
         <TableRowColumn>
           <Avatar
-            src={match.p1Img}
             size={40}
+            src={match.p1Img}
             style={smallAvatar}
           />
           </TableRowColumn>
@@ -49,8 +47,8 @@ const MatchRow = React.createClass({
           <TableRowColumn>{match.p2FirstName} {match.p2LastName}</TableRowColumn>
           <TableRowColumn>
             <Avatar
-              src={match.p2Img}
               size={40}
+              src={match.p2Img}
               style={smallAvatar}
             />
           </TableRowColumn>
