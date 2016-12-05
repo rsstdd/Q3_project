@@ -23,6 +23,14 @@ const buttonStyle = {
 const AddMatchToHistory = React.createClass({
   handleSubmit(e) {
     e.preventDefault();
+    console.log('jello');
+
+    const match = this.props.playerNames.indexOf(this.props.player2Name);
+
+    console.log(match, 'match');
+
+    const p2Id = this.props.players[match].id;
+    console.log(p2Id);
 
     let WinP1 = false;
     let WinP2 = false;
@@ -33,7 +41,11 @@ const AddMatchToHistory = React.createClass({
       this.props.score1 > this.props.score2 ? WinP1 = true : WinP2 = true;
     }
 
-    
+    // var result = listOfAllPossibleProducts.filter(function (el) {
+    //   return listOfSelectedProductIds.indexOf(el.id) > -1;
+    // });
+
+    // console.log(match);
 
     axios.post('/api/matches', {
       p1Id: this.props.player.id,

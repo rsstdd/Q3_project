@@ -63,7 +63,6 @@ router.get(`/matches/:id`, (req, res, next) => {
       const matches = camelizeKeys(rows);
 
       res.send(matches);
-      console.log(matches);
     })
     .catch((err) => {
       next(err);

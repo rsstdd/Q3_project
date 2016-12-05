@@ -22,7 +22,6 @@ const containerStyle = {
 
 const MatchTable = React.createClass({
   render() {
-    // console.log(this.props.matches, 'matchtable');
     return (
       <Paper style={containerStyle} zDepth={1}>
         <Table>
