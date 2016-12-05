@@ -50,7 +50,7 @@ const SignIn = React.createClass({
     })
     .then((res) => {
       const playerJson = res.config.data;
-      const player = JSON.parse(playerJson)
+      const player = JSON.parse(playerJson);
       const email = player.email;
 
       this.props.handleAuthenticateUser(true);
@@ -73,8 +73,6 @@ const SignIn = React.createClass({
                 name="email"
                 onChange={this.handleChange}
                 value={this.state.email}
-                // errorText="This field is required"
-                // floatingLabelText="Floating Label Text"
               /><br />
               <TextField
                 type="password"
@@ -82,10 +80,6 @@ const SignIn = React.createClass({
                 name="password"
                 onChange={this.handleChange}
                 value={this.state.password}
-                // errorText="This field is required."
-                // floatingLabelText="MultiLine and FloatingLabel"
-                // multiLine={true}
-                // rows={2}
               /><br />
 
                 <div>

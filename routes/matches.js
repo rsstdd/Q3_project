@@ -69,15 +69,9 @@ router.get(`/matches/:id`, (req, res, next) => {
     });
 });
 
-router.post('/matches/', authorize, (req, res, next) => {
+// authorize
+router.post('/matches/', (req, res, next) => {
   let { p1Id, p2Id, scoreP1, scoreP2, winP1, winP2 } = req.body;
-
-  p1Id = parseInt(p1Id);
-  p2Id = parseInt(p2Id);
-  scoreP1 = parseInt(scoreP1);
-  scoreP2 = parseInt(scoreP2);
-  winP1 = Boolean(winP1);
-  winP2 = Boolean(winP2);
 
   const match = { p1Id, p2Id, scoreP1, scoreP2, winP1, winP2 };
 

@@ -46,21 +46,20 @@ const Main = React.createClass({
     };
   },
 
-  // getNewUserInfo(user) {
-  //   this.setState({
-  //     email: user.email,
-  //     password: user.password,
-  //     firstName: user.firstName,
-  //     lastName: user.lastName,
-  //     age: user.age,
-  //     country: user.country,
-  //     bio: user.bio,
-  //     imgUrl: user.imgUrl
-  //   });
-  // },
+  getNewUserInfo(user) {
+    this.setState({
+      email: user.email,
+      password: user.password,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      age: user.age,
+      country: user.country,
+      bio: user.bio,
+      imgUrl: user.imgUrl
+    });
+  },
 
   render() {
-    // console.log(this.state.matches, 'Main.jsx');
     return (
       <main>
           <Match pattern="/signup" render={

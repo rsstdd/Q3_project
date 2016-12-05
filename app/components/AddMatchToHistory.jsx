@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Match, Link } from 'react-router';
-import { Avatar, DatePicker, AutoComplete, FlatButton, Paper, TextField, RaisedButton }  from 'material-ui/';
+import { Avatar, AutoComplete, DatePicker, FlatButton, Paper, TextField, RaisedButton, SelectField, MenuItem }  from 'material-ui/';
 // AutoComplete
 import axios from 'axios';
 
@@ -21,37 +21,68 @@ const buttonStyle = {
 };
 
 const AddMatchToHistory = React.createClass({
+
+  getInitialState() {
+    return {
+      p2Id: '',
+      scoreP1: '',
+      scoreP2: '',
+      nameP2: '',
+      winP1: '',
+      winP2: '',
+      AutoMatches: [],
+      names: this.props.playerNames
+    };
+  },
+
+  handleChange(event) {
+    console.log('hi');
+
+    const nextState = { [event.target.name]: event.target.value };
+
+    this.setState(nextState);
+    console.log(this.state.nameP2, 'name');
+  },
+
+  addNewMatchToHistory(addedMatch) {
+    this.setState({
+      AutoMatches: this.props.matches.concat(
+        {
+          nameP2: addedMatch.player2Name
+        }
+      )
+    });
+  },
+
   handleSubmit(e) {
     e.preventDefault();
-    console.log('jello');
 
-    const match = this.props.playerNames.indexOf(this.props.player2Name);
+    const lowerNames = this.props.playerNames.map((name) => {
+      return name.toLowerCase();
 
-    console.log(match, 'match');
+    });
 
-    const p2Id = this.props.players[match].id;
-    console.log(p2Id);
+    const lowerPlayer = this.state.nameP2.toLowerCase();
+    const index = lowerNames.indexOf(lowerPlayer);
+
+    let p2Id = this.props.players[index].id;
+
+    console.log(p2Id, 'player2 Id');
 
     let WinP1 = false;
     let WinP2 = false;
 
-    if (this.props.score1 === this.props.score2) {
-      return -1;
+    if (this.state.scoreP1 === this.state.scoreP2) {
+      alert('Ties Not Acceptable');
     } else {
-      this.props.score1 > this.props.score2 ? WinP1 = true : WinP2 = true;
+      this.state.scoreP1 > this.state.scoreP2 ? WinP1 = true : WinP2 = true;
     }
 
-    // var result = listOfAllPossibleProducts.filter(function (el) {
-    //   return listOfSelectedProductIds.indexOf(el.id) > -1;
-    // });
-
-    // console.log(match);
-
     axios.post('/api/matches', {
-      p1Id: this.props.player.id,
-      p2Id: this.props.p2Id,
-      scoreP1: this.props.scoreP1,
-      scoreP2: this.props.scoreP2,
+      p1Id: this.props.playerId,
+      p2Id: p2Id,
+      scoreP1: this.state.scoreP1,
+      scoreP2: this.state.scoreP2,
       winP1: WinP1,
       winP2: WinP2
     })
@@ -64,12 +95,13 @@ const AddMatchToHistory = React.createClass({
   },
 
   render() {
-    // console.log('add to match');
-    // console.log(this.props.matches, 'props.matches');
-    // console.log(this.props.players, 'props.players');
-    // console.log(this.props.player, 'props.player');
-
     if (this.props.matches) {
+
+    const items = [];
+    for (let i = 0; i <= 21; i++ ) {
+      items.push(<MenuItem value={i} key={i} primaryText={`Score: ${i}`} />);
+    }
+
       return (
         <div>
           <Paper style={matchContainerStyle} zDepth={1}>
@@ -78,29 +110,46 @@ const AddMatchToHistory = React.createClass({
                 <h2>Add a Match to the History Books...</h2>
                 <div>
                   <h4>Player 1:
-                     { this.props.player.firstName} {this.props.player.lastName}
+                     {this.props.player.firstName} {this.props.player.lastName}
                   </h4>
                   <h4>Score:
                     <TextField
-                      name="player1Score"
-                      value={this.props.player1score}
+                      name="scoreP1"
+                      onChange={this.handleChange}
+                      value={this.state.scoreP1}
                     />
+                    {/* <SelectField
+                       value={this.state.value}
+                       onChange={this.handleChange}
+                       maxHeight={200}
+                    >
+                      {items}
+                    </SelectField> */}
                   </h4>
                 </div>
                 <h4>Vs.</h4>
                 <div>
                   <h4>Player 2:
-                    <AutoComplete
-                      dataSource={this.props.playerNames}
-                      filter={AutoComplete.caseInsensitiveFilter}
-                      name="player2Name"
-                      value={this.props.player2Name}
-                    />
-                   </h4>
-                  <h4>Score:
                     <TextField
-                      name="player2Score"
-                      value={this.props.player2score}
+                      dataSource={this.props.playerNames}
+                      // filter={AutoComplete.caseInsensitiveFilter}
+                      onChange={this.handleChange}
+                      name="nameP2"
+                      value={this.state.nameP2}
+                    />
+                  </h4>
+                  <h4>Score:
+                    {/* <SelectField
+                       value={this.state.value}
+                       onChange={this.handleChange}
+                       maxHeight={200}
+                    >
+                      {items}
+                    </SelectField> */}
+                    <TextField
+                      name="scoreP2"
+                      onChange={this.handleChange}
+                      value={this.state.scoreP2}
                     />
                    </h4>
                   {/* <div>
@@ -113,6 +162,8 @@ const AddMatchToHistory = React.createClass({
                   label="Add Match Results"
                   style={buttonStyle}
                   type="submit"
+                  onClick={this.handleSubmit}
+                  onClick={this.handleSubmit}
                 />
               </div>
             </form>

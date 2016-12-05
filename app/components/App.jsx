@@ -67,12 +67,13 @@ const App = React.createClass({
             age: obj.age,
             country: obj.country,
             bio: obj.bio,
+            id: obj.id,
             imgUrl: obj.imgUrl
           };
         });
 
         const playerNames = players.map((item) => {
-          return item.firstName
+          return item.firstName;
         })
 
         this.setState({ playerNames: playerNames });
@@ -108,12 +109,6 @@ const App = React.createClass({
   },
 
   render() {
-    // console.log(this.state.isLoggedIn, 'isLoggedIn');
-    // console.log(this.state.playerId, 'playerId');
-    // console.log(this.state.players, 'players');
-    // console.log(this.state.player, 'player');
-    console.log(this.state.playerNames, ' - app');
-
     return (
       <BrowserRouter >
         <div>
