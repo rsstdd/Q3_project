@@ -86,26 +86,40 @@ const App = React.createClass({
             const player = { email, password, firstName, lastName, age, country, bio, imgUrl }
 
             this.setState({ player: player });
+            this.getMatches();
           })
           .catch((err) => {
             console.log(err);
           })
-          .then(() => {
-            axios.get(`/api/matches/${this.state.playerId}`)
-            .then((res) => {
-
-              const matchesData = res.data;
-
-              this.setState({ matches: matchesData });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-          })
+          // .then(() => {
+            // axios.get(`/api/matches/${this.state.playerId}`)
+            // .then((res) => {
+            //
+            //   const matchesData = res.data;
+            //
+            //   this.setState({ matches: matchesData });
+            // })
+            // .catch((err) => {
+            //   console.log(err);
+            // });
+          // })
       })
       .catch((err) => {
         console.log(err);
       });
+  },
+
+  getMatches() {
+    axios.get(`/api/matches/${this.state.playerId}`)
+    .then((res) => {
+
+      const matchesData = res.data;
+
+      this.setState({ matches: matchesData });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   },
 
   render() {
@@ -117,6 +131,7 @@ const App = React.createClass({
             handleAuthenticateUser={this.handleAuthenticateUser}
             handleSignUpPlayer={this.handleSignUpPlayer}
             handleGetUserId={this.handleGetUserId}
+            getMatches={this.getMatches}
             isLoggedIn={this.state.isLoggedIn}
             matches={this.state.matches}
             player={this.state.player}

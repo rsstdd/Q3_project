@@ -87,6 +87,7 @@ const AddMatchToHistory = React.createClass({
       winP2: WinP2
     })
     .then((response) => {
+      this.props.getMatches();
       console.log(response);
     })
     .catch((error) => {

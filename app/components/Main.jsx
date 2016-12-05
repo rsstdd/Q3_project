@@ -85,6 +85,7 @@ const Main = React.createClass({
 
         <Match pattern="/profile" render={
           () => this.props.id > 0 ? <Redirect to="/profile" /> : <Profile
+            getMatches={this.props.getMatches}
             matches={this.props.matches}
             playerId={this.props.playerId}
             player={this.props.player}

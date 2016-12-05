@@ -28,6 +28,7 @@ const Profile = React.createClass({
         <AddMatchToHistory
           addNewMatchToHistory={this.addNewMatchToHistory}
           matches={this.props.matches}
+          getMatches={this.props.getMatches}
           player={this.props.player}
           playerId={this.props.playerId}
           playerNames={this.props.playerNames}
