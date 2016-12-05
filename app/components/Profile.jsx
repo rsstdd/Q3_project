@@ -13,6 +13,7 @@ import AddMatchToHistory from './AddMatchToHistory';
 import MatchTable from './MatchTable';
 
 const buttonStyle = {margin: 12};
+;
 
 const Profile = React.createClass({
   getInitialState() {
@@ -32,7 +33,8 @@ const Profile = React.createClass({
     this.setState({
       AutoMatches: this.props.matches.concat(
         {
-          player1Name: this.props.player.firstName,
+          // player1Name: this.props.player.firstName,
+          player1Name: this.props.player,
           player1Score: addedMatch.player1Score,
           player2Name: addedMatch.player2Name,
           player2Score: addedMatch.player2Score
@@ -42,7 +44,9 @@ const Profile = React.createClass({
   },
 
   render() {
-    console.log(this.props.playerNames, 'profile');
+    console.log(this.props.player1Name);
+    console.log('profile');
+
     // console.log(this.props.matches, 'profile');
 
     return (
