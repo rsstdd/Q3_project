@@ -30,8 +30,9 @@ const App = React.createClass({
   },
 
   componentDidMount() {
-    axios.get('/api/token')
+    axios.get('/api/token') // isLoggedIn then user info
       .then((res) => {
+        console.log(res.data);
         this.setState({ isLoggedIn: res.data });
       })
       .catch((err) => {
@@ -39,9 +40,9 @@ const App = React.createClass({
       });
   },
 
-  handleAuthenticateUser(bool) {
-    this.setState({ isLoggedIn: bool });
-  },
+  // handleAuthenticateUser(bool) {
+  //   this.setState({ isLoggedIn: bool });
+  // },
 
   handleSignUpPlayer(id) {
     this.setState({ playerId: id });
@@ -76,8 +77,7 @@ const App = React.createClass({
           return item.firstName;
         })
 
-        this.setState({ playerNames: playerNames });
-        this.setState({ players: player });
+        this.setState({ playerNames: playerNames, players: player });
       })
       .then(() => {
         axios.get(`api/player/${this.state.playerId}`)
@@ -91,18 +91,6 @@ const App = React.createClass({
           .catch((err) => {
             console.log(err);
           })
-          // .then(() => {
-            // axios.get(`/api/matches/${this.state.playerId}`)
-            // .then((res) => {
-            //
-            //   const matchesData = res.data;
-            //
-            //   this.setState({ matches: matchesData });
-            // })
-            // .catch((err) => {
-            //   console.log(err);
-            // });
-          // })
       })
       .catch((err) => {
         console.log(err);
@@ -128,7 +116,7 @@ const App = React.createClass({
         <div>
           <Header />
           <Main
-            handleAuthenticateUser={this.handleAuthenticateUser}
+            // handleAuthenticateUser={this.handleAuthenticateUser}
             handleSignUpPlayer={this.handleSignUpPlayer}
             handleGetUserId={this.handleGetUserId}
             getMatches={this.getMatches}
