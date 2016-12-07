@@ -10,10 +10,10 @@
   },
   "scripts": {
     "deploy": "rm -rf public; brunch build --production; surge public",
+    "heroku-postbuild": "brunch build --production; knex migrate:latest",
     "lint": "eslint --ext .js,.jsx --ignore-pattern public",
     "start": "brunch watch --server",
-    "knex": "knex",
-    "heroku-postbuild": "brunch build --production; knex migrate:latest"
+    "knex": "knex"
   },
   "dependencies": {
     "axios": "^0.15.3",
@@ -54,6 +54,11 @@
     "eslint-config-ryansobol": "^9.1.1",
     "surge": "^0.18.0"
   },
+
+  "engines": {
+    "node": "7.2.0"
+  },
+
   "main": ".eslintrc.js",
   "keywords": []
 }
