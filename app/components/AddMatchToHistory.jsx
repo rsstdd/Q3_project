@@ -11,7 +11,7 @@ const matchContainerStyle = {
   width: 950,
   margin: '10px auto 0 auto',
   textAlign: 'center',
-  display: 'flex', // Fd with this
+  display: 'flex',
   justifyContent: 'center',
   alignItems: 'center'
 };
