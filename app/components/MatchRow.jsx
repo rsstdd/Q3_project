@@ -38,7 +38,7 @@ const MatchRow = React.createClass({
           </TableRowColumn>
           <TableRowColumn>{match.p1FirstName} {match.p1LastName}</TableRowColumn>
           <TableRowColumn />
-          <TableRowColumn>{match.winP1 ? 'Win' : 'Loss'}</TableRowColumn>
+          <TableRowColumn>{match.winP2 ? 'Win' : 'Loss'}</TableRowColumn>
           <TableRowColumn />
           <TableRowColumn>{Number.parseInt(match.scoreP1)}</TableRowColumn>
           <TableRowColumn />

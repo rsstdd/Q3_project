@@ -73,7 +73,7 @@ exports.seed = function(knex) {
         age: 32,
         country: 'United States',
         bio: 'Red is the color of fear.',
-        img_url: 'http://i.imgur.com/4b1C9Tv.jpg',
+        img_url: 'http://i.imgur.com/ukFwImy.jpg',
         created_at: new Date('2016-06-29 14:26:16 UTC'),
         updated_at: new Date('2016-06-29 14:26:16 UTC')
       }, {

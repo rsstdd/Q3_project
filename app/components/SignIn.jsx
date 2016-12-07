@@ -37,16 +37,17 @@ const SignIn = React.createClass({
     const email = this.state.email;
     const password = this.state.password;
 
-    // if (!email) {
-    //   alert('Email must not be blank');
-    // }
-    // if (!password) {
-    //   alert('Password must not be blank');
-    // }
+    if (!email) {
+      alert('Email must not be blank');
+    }
+    if (!password) {
+      alert('Password must not be blank');
+    }
 
     axios.post('/api/token', { email, password })
     .then((res) => {
       this.props.authenticateUser(email, password);
+      
     })
     .catch((error) => {
       console.log(error);

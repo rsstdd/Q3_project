@@ -37,27 +37,27 @@ router.post('/players', (req, res, next) => {
   let { email, password, firstName, lastName, age, country, bio, imgUrl } = req.body;
   age = parseInt(age);
 
-    // if (!email || !email.trim()) {
-    //   return next(boom.create(400, 'Email must not be blank'));
-    // }
-    // if (!password || password.length < 8) {
-    //   return next(boom.create(400, 'Password must be at least 8 characters long'));
-    // }
-    // if (!firstName || !firstName.trim()) {
-    //   return next(boom.create(400, 'First Name must not be blank'));
-    // }
-    // if (!lastName || !lastName.trim()) {
-    //   return next(boom.create(400, 'Last Name must not be blank'));
-    // }
-    // if (!country || country.length < 8) {
-    //   return next(boom.create(400, 'Country Must not be blank'));
-    // }
-    // if (!bio || !bio.trim()) {
-    //   return next(boom.create(400, 'Bio must not be blank'));
-    // }
-    // if (!imgUrl || !imgUrl.trim()) {
-    //   return next(boom.create(400, 'imgUrl must not be blank'));
-    // }
+    if (!email || !email.trim()) {
+      return next(boom.create(400, 'Email must not be blank'));
+    }
+    if (!password || password.length < 8) {
+      return next(boom.create(400, 'Password must be at least 8 characters long'));
+    }
+    if (!firstName || !firstName.trim()) {
+      return next(boom.create(400, 'First Name must not be blank'));
+    }
+    if (!lastName || !lastName.trim()) {
+      return next(boom.create(400, 'Last Name must not be blank'));
+    }
+    if (!country || country.length < 8) {
+      return next(boom.create(400, 'Country Must not be blank'));
+    }
+    if (!bio || !bio.trim()) {
+      return next(boom.create(400, 'Bio must not be blank'));
+    }
+    if (!imgUrl || !imgUrl.trim()) {
+      return next(boom.create(400, 'imgUrl must not be blank'));
+    }
 
   knex('players')
     .where('email', email)
@@ -87,7 +87,6 @@ router.post('/players', (req, res, next) => {
 
 router.get('/player/:id', authorize, (req, res, next) => {
   const id = Number.parseInt(req.params.id);
-  console.log('######################## router/players #######################');
 
   if (Number.isNaN(id)) {
     return next();

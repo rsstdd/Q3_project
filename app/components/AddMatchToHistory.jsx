@@ -95,10 +95,6 @@ const AddMatchToHistory = React.createClass({
   render() {
     if (this.props.matches) {
     const items = [];
-    // for (let i = 0; i <= 21; i++ ) {
-    //   items.push(<MenuItem value={i} key={i} primaryText={`Score: ${i}`} />);
-    // }
-
       return (
         <div>
           <Paper style={matchContainerStyle} zDepth={1}>

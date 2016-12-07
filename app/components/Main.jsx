@@ -86,8 +86,10 @@ const Main = React.createClass({
             )}
         />
 
-        <Match pattern="/" exactly render={
-          () =>  <div>
+        <Match
+          pattern="/" exactly render={
+          () => (
+          <div>
             <Paper
               style={style} zDepth={1}
             >
@@ -116,10 +118,9 @@ const Main = React.createClass({
               </Paper>
             </Paper>
           </div>
-          }
+        )}
         />
       </main>
-      // </BrowserRouter>
     );
   }
 });

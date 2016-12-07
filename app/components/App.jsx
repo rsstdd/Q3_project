@@ -94,23 +94,18 @@ const App = React.createClass({
     });
   },
 
-  // logOut() {
-  //   this.setState({
-  //     isLoggedIn: false,
-  //     playerId: 0,
-  //     players: [],
-  //     playerNames: [],
-  //     user: [],
-  //     matches: []
-  //   });
-  // },
+  logOut() {
+    this.setState({
+      isLoggedIn: false,
+      playerId: 0,
+      players: [],
+      playerNames: [],
+      user: [],
+      matches: []
+    });
+  },
 
   render() {
-    console.log(this.state.playerId, 'isLoggedIn');
-    console.log(this.state.isLoggedIn, 'isLoggedIn');
-    console.log(this.state.user, 'user');
-    console.log(this.state.matches, 'matches');
-    console.log(this.state.players, 'players');
     return (
       <BrowserRouter >
         <div>
