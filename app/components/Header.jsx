@@ -17,14 +17,16 @@ import {AppBar, Tab, Tabs} from 'material-ui';
 const Header = () => (
   <div>
     <AppBar
-      title="Ping Pong Blah"
+      title="PingPongThing"
       showMenuIconButton={false}
     >
-      {/* <Tabs>
-        <Tab label="Sign In" />
-        <Tab label="Item 1" />
-        <Tab label="Item 1" />
-      </Tabs> */}
+    <Tabs>
+        {/* <Tab label="logOut"
+        logOut={this.props.logOut}
+         /> */}
+        {/* <Tab label="Item 1" />
+        <Tab labfel="Item 1" /> */}
+      </Tabs>
     </AppBar>
   </div>
 );

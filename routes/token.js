@@ -16,21 +16,17 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.post('/api/token', authorize, (req, res, next) => {
-  console.log('hello____GET___Token_________hello');
-  console.log('########### TOKEN USER ############');
-
+router.post('/token', (req, res, next) => {
   const { email, password } = req.body;
-
   let user;
 
-  if (!email || !email.trim()) {
-    return next(boom.create(400, 'Username must not be blank'));
-  }
-
-  if (!password || password.length < 8) {
-    return next(boom.create(400, 'Password must not be blank'));
-  }
+  // if (!email || !email.trim()) {
+  //   return next(boom.create(400, 'Username must not be blank'));
+  // }
+  //
+  // if (!password || password.length < 8) {
+  //   return next(boom.create(400, 'Password must not be blank'));
+  // }
 
   knex('players')
     .where('email', email)
@@ -59,9 +55,6 @@ router.post('/api/token', authorize, (req, res, next) => {
       });
 
       res.send(user);
-
-      console.log('########### TOKEN USER ############');
-      console.log(res.cookie);
     })
     .catch(bcrypt.MISMATCH_ERROR, () => {
       throw boom.create(400, 'Bad email or password');
@@ -78,10 +71,8 @@ router.delete('/token', (req, res, _next) => {
 });
 
 router.get('/token', (req, res, next) => {
-  console.log('hello____GET___Token_________hello');
   jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err) => {
     res.send(!Boolean(err));
-    console.log(!Boolean(err));
   });
 });
 

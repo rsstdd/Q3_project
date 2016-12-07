@@ -9,7 +9,7 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import Profile from './Profile';
 
-import { Match, Link, Redirect } from 'react-router';
+import { Match, Link, Redirect, BrowserRouter } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const style = {
@@ -32,67 +32,58 @@ const buttonWrapper = {
 };
 
 const Main = React.createClass({
-  getInitialState() {
-    return {
-      email: '',
-      password: '',
-      firstName: '',
-      lastName: '',
-      age: '',
-      country: '',
-      bio: '',
-      imgUrl: ''
-
-    };
-  },
-
-  getNewUserInfo(user) {
-    this.setState({
-      email: user.email,
-      password: user.password,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      age: user.age,
-      country: user.country,
-      bio: user.bio,
-      imgUrl: user.imgUrl
-    });
-  },
 
   render() {
     return (
+      // <BrowserRouter>
       <main>
-          <Match pattern="/signup" render={
-            () => this.props.isLoggedIn ? <Redirect to="/profile" /> : <SignUp
-              handleAuthenticateUser={this.props.handleAuthenticateUser}
-              handleSignUpPlayer={this.props.handleSignUpPlayer}
-              handleGetUserId={this.props.handleGetUserId}
-              isLoggedIn={this.props.isLoggedIn}
-              playerId={this.props.playerId}
-            />
-            }
+          <Match
+            pattern="/signup" exactly render={
+            () => (
+              this.props.isLoggedIn ? (
+                <Redirect to="/profile" />
+              ) : (
+               <SignUp
+                  authenticateUser={this.props.authenticateUser}
+                  // getMatches={this.props.getMatches}
+                  getPlayers={this.props.getPlayers}
+                  isLoggedIn={this.props.isLoggedIn}
+                  playerId={this.props.playerId}
+                />)
+              )}
           />
 
-        <Match pattern="/signin" render={
-          () => this.props.isLoggedIn ? <Redirect to="/profile" /> : <SignIn
-            handleAuthenticateUser={this.props.handleAuthenticateUser}
-            handleGetUserId={this.props.handleGetUserId}
-            isLoggedIn={this.props.isLoggedIn}
-            playerId={this.props.playerId}
-          />
-          }
+        <Match
+          pattern="/signin" exactly render={
+          () => (
+            this.props.isLoggedIn ? (
+              <Redirect to="/profile" />
+            ) : (
+             <SignIn
+               authenticateUser={this.props.authenticateUser}
+              //  getMatches={this.props.getMatches}
+               getPlayers={this.props.getPlayers}
+               isLoggedIn={this.props.isLoggedIn}
+               playerId={this.props.playerId}
+              />)
+            )}
         />
 
-        <Match pattern="/profile" render={
-          () => this.props.id > 0 ? <Redirect to="/profile" /> : <Profile
-            getMatches={this.props.getMatches}
-            matches={this.props.matches}
-            playerId={this.props.playerId}
-            player={this.props.player}
-            players={this.props.players}
-            playerNames={this.props.playerNames}
-          />
-          }
+        <Match
+          pattern="/profile" exactly render={
+          () => (
+            this.props.isLoggedIn === false ? (
+              <Redirect to="/" />
+            ) : (
+              <Profile
+                getMatches={this.props.getMatches}
+                matches={this.props.matches}
+                playerId={this.props.playerId}
+                playerNames={this.props.playerNames}
+                players={this.props.players}
+                user={this.props.user}
+              />)
+            )}
         />
 
         <Match pattern="/" exactly render={
@@ -102,7 +93,10 @@ const Main = React.createClass({
             >
               <div>
                 <div>
-                  <h2>Keep track of stats. Create an Account or Sign In to get started...</h2>
+                  <h2>
+                    Keep track of stats.
+                    Create an Account or Sign In to get started...
+                   </h2>
                 </div>
               </div>
               <Paper
@@ -125,6 +119,7 @@ const Main = React.createClass({
           }
         />
       </main>
+      // </BrowserRouter>
     );
   }
 });

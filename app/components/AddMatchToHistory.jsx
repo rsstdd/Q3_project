@@ -7,11 +7,11 @@ import { Avatar, AutoComplete, DatePicker, FlatButton, Paper, TextField, RaisedB
 import axios from 'axios';
 
 const matchContainerStyle = {
-  height: 600,
+  height: 800,
   width: 950,
   margin: '10px auto 0 auto',
   textAlign: 'center',
-  display: 'flex',
+  display: 'flex', // Fd with this
   justifyContent: 'center',
   alignItems: 'center'
 };
@@ -36,12 +36,9 @@ const AddMatchToHistory = React.createClass({
   },
 
   handleChange(event) {
-    console.log('hi');
-
     const nextState = { [event.target.name]: event.target.value };
 
     this.setState(nextState);
-    console.log(this.state.nameP2, 'name');
   },
 
   addNewMatchToHistory(addedMatch) {
@@ -87,7 +84,7 @@ const AddMatchToHistory = React.createClass({
       winP2: WinP2
     })
     .then((response) => {
-      this.props.getMatches();
+      this.props.getMatches(this.props.playerId);
       console.log(response);
     })
     .catch((error) => {
@@ -97,11 +94,10 @@ const AddMatchToHistory = React.createClass({
 
   render() {
     if (this.props.matches) {
-
     const items = [];
-    for (let i = 0; i <= 21; i++ ) {
-      items.push(<MenuItem value={i} key={i} primaryText={`Score: ${i}`} />);
-    }
+    // for (let i = 0; i <= 21; i++ ) {
+    //   items.push(<MenuItem value={i} key={i} primaryText={`Score: ${i}`} />);
+    // }
 
       return (
         <div>
@@ -111,7 +107,7 @@ const AddMatchToHistory = React.createClass({
                 <h2>Add a Match to the History Books...</h2>
                 <div>
                   <h4>Player 1:
-                     {this.props.player.firstName} {this.props.player.lastName}
+                     {this.props.user.firstName} {this.props.user.lastName}
                   </h4>
                   <h4>Score:
                     <TextField
@@ -163,7 +159,6 @@ const AddMatchToHistory = React.createClass({
                   label="Add Match Results"
                   style={buttonStyle}
                   type="submit"
-                  onClick={this.handleSubmit}
                   onClick={this.handleSubmit}
                 />
               </div>

@@ -13,53 +13,41 @@ const App = React.createClass({
 
   getInitialState() {
     return {
-
       isLoggedIn: false,
-
       playerId: 0,
-
       players: [],
-
       playerNames: [],
-
-      player: [],
-
+      user: [],
       matches: []
-
     };
   },
 
   componentDidMount() {
-    axios.get('/api/token') // isLoggedIn then user info
+    axios.get('/api/me') // isLoggedIn then user info
       .then((res) => {
-        console.log(res.data);
-        this.setState({ isLoggedIn: res.data });
+        console.log(res.data.id);
+        this.setState({
+          isLoggedIn: true,
+          playerId: res.data.id,
+          user: res.data
+        });
+      })
+      .then(() => {
+        this.getPlayers();
+        this.getMatches(this.state.playerId);
       })
       .catch((err) => {
-        this.setState({ loadErr: err });
+        this.setState({ isLoggedIn: false })
+        console.log(err);
       });
   },
 
-  // handleAuthenticateUser(bool) {
-  //   this.setState({ isLoggedIn: bool });
-  // },
-
-  handleSignUpPlayer(id) {
-    this.setState({ playerId: id });
-  },
-
-  handleGetUserId(email) {
+  getPlayers() {
     axios.get('/api/players')
       .then((res) => {
-        const players = res.data;
-        const id = res.data.filter((obj) => {
-          return obj.email === email;
-        })[0].id;
+        let players = res.data;
 
-        this.setState({ isLoggedIn: true });
-        this.setState({ playerId: id });
-
-        const player = players.map((obj) => {
+        players = players.map((obj) => {
           return {
             email: obj.email,
             password: obj.password,
@@ -75,57 +63,70 @@ const App = React.createClass({
 
         const playerNames = players.map((item) => {
           return item.firstName;
-        })
+        });
 
-        this.setState({ playerNames: playerNames, players: player });
-      })
-      .then(() => {
-        axios.get(`api/player/${this.state.playerId}`)
-          .then((res) => {
-            let { email, password, firstName, lastName, age, country, bio, imgUrl } = res.data;
-            const player = { email, password, firstName, lastName, age, country, bio, imgUrl }
-
-            this.setState({ player: player });
-            this.getMatches();
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-      })
-      .catch((err) => {
-        console.log(err);
+        this.setState({ playerNames: playerNames, players: players });
       });
   },
 
-  getMatches() {
-    axios.get(`/api/matches/${this.state.playerId}`)
+  getMatches(playerId) {
+    axios.get(`/api/matches/${playerId}`)
     .then((res) => {
-
       const matchesData = res.data;
 
-      this.setState({ matches: matchesData });
+      if (matchesData.length > 0) {
+        this.setState({ matches: matchesData });
+      }
+
     })
     .catch((err) => {
       console.log(err);
     });
   },
 
+  authenticateUser(email, password) {
+    axios.post('api/token', { email, password })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+  },
+
+  // logOut() {
+  //   this.setState({
+  //     isLoggedIn: false,
+  //     playerId: 0,
+  //     players: [],
+  //     playerNames: [],
+  //     user: [],
+  //     matches: []
+  //   });
+  // },
+
   render() {
+    console.log(this.state.playerId, 'isLoggedIn');
+    console.log(this.state.isLoggedIn, 'isLoggedIn');
+    console.log(this.state.user, 'user');
+    console.log(this.state.matches, 'matches');
+    console.log(this.state.players, 'players');
     return (
       <BrowserRouter >
         <div>
-          <Header />
+          <Header
+            logout={this.logOut}
+          />
           <Main
-            // handleAuthenticateUser={this.handleAuthenticateUser}
-            handleSignUpPlayer={this.handleSignUpPlayer}
-            handleGetUserId={this.handleGetUserId}
+            authenticateUser={this.authenticateUser}
             getMatches={this.getMatches}
+            getPlayers={this.getPlayers}
             isLoggedIn={this.state.isLoggedIn}
             matches={this.state.matches}
-            player={this.state.player}
             playerId={this.state.playerId}
-            players={this.state.players}
             playerNames={this.state.playerNames}
+            players={this.state.players}
+            user={this.state.user}
           />
         </div>
       </BrowserRouter>

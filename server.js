@@ -35,10 +35,12 @@ app.use(express.static(path.join('public')));
 const players = require('./routes/players');
 const matches = require('./routes/matches');
 const token = require('./routes/token');
-console.log('####### SERVER ####### BLAH ########');
+const me = require('./routes/me');
+
 app.use('/api', players);
 app.use('/api', matches);
 app.use('/api', token);
+app.use('/api', me);
 
 app.use((_req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));

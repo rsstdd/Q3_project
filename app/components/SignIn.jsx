@@ -33,32 +33,23 @@ const SignIn = React.createClass({
   },
 
   handleSignIn(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const email = this.state.email;
     const password = this.state.password;
 
-    if (!email) {
-      alert('Email must not be blank');
-    }
-    if (!password) {
-      alert('Password must not be blank');
-    }
+    // if (!email) {
+    //   alert('Email must not be blank');
+    // }
+    // if (!password) {
+    //   alert('Password must not be blank');
+    // }
 
-    axios.post('/api/token', {
-      email,
-      password
-    })
+    axios.post('/api/token', { email, password })
     .then((res) => {
-      const playerJson = res.config.data;
-      const player = JSON.parse(playerJson);
-      const email = player.email;
-
-      this.props.handleAuthenticateUser(true);
-      this.props.handleGetUserId(email);
+      this.props.authenticateUser(email, password);
     })
     .catch((error) => {
       console.log(error);
-      this.props.handleAuthenticateUser(false);
     });
   },
 

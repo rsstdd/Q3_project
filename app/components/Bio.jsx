@@ -13,7 +13,7 @@ const containerStyle = {
   textAlign: 'center',
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
 };
 
 const imgContainer = {
@@ -31,14 +31,14 @@ const avStyle = {
 const Bio = React.createClass({
 
   render() {
-    if (this.props.player) {
+    if (this.props.user) {
       return (
         <div>
           <Paper style={containerStyle} zDepth={1}>
             <Paper style={imgContainer} zDepth={0}>
               <div>
                 <Avatar
-                  src={this.props.player.imgUrl}
+                  src={this.props.user.imgUrl}
                   size={230}
                   style={avStyle}
                 />
@@ -46,10 +46,10 @@ const Bio = React.createClass({
             </Paper>
 
             <div>
-              <h1>{`${this.props.player.firstName} ${this.props.player.lastName}`}</h1>
-              <h3>Country: {this.props.player.country}</h3>
-              <h3>Age: {this.props.player.age}</h3>
-              <h3>Bio: {this.props.player.bio}</h3>
+              <h1>{`${this.props.user.firstName} ${this.props.user.lastName}`}</h1>
+              <h3>Country: {this.props.user.country}</h3>
+              <h3>Age: {this.props.user.age}</h3>
+              <h3>Bio: {this.props.user.bio}</h3>
             </div>
           </Paper>
         </div>

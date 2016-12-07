@@ -21,18 +21,18 @@ const Profile = React.createClass({
       <div>
         <Bio
           matches={this.props.matches}
-          player={this.props.player}
           playerId={this.props.playerId}
           players={this.props.players}
+          user={this.props.user}
         />
         <AddMatchToHistory
           addNewMatchToHistory={this.addNewMatchToHistory}
-          matches={this.props.matches}
           getMatches={this.props.getMatches}
-          player={this.props.player}
+          matches={this.props.matches}
           playerId={this.props.playerId}
           playerNames={this.props.playerNames}
           players={this.props.players}
+          user={this.props.user}
         />
         <MatchTable
           matches={this.props.matches}

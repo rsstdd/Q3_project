@@ -39,15 +39,15 @@ router.get('/matches', (req, res, next) => {
     });
 });
 
-//authorize,
+// authorize,
 router.get(`/matches/:id`, (req, res, next) => {
   // Gets the specific matches that include the player id
   console.log('####### GET MATCHES/ID ########');
-  const playerId  = Number.parseInt(req.params.id);
+  const playerId = Number.parseInt(req.params.id);
 
-  // if (Number.isNaN(playerId)) {
-  //   return next();
-  // }
+  if (Number.isNaN(playerId)) {
+    return next();
+  }
 
   knex('matches')
     .distinct('matches.id as match_id')

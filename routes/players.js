@@ -7,9 +7,17 @@ const { camelizeKeys, decamelizeKeys } = require('humps');
 const bcyrpt = require('bcrypt-as-promised');
 const ev = require('express-validation');
 const validations = require('../validations/players');
+const jwt = require('jsonwebtoken');
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
+
+const authorize = function(req, res, next) {
+  jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err) => {
+    res.verify = err === null;
+    next();
+  });
+};
 
 router.get('/players', (_req, res, next) => {
   knex('players')
@@ -77,7 +85,7 @@ router.post('/players', (req, res, next) => {
     });
 });
 
-router.get('/player/:id', (req, res, next) => {
+router.get('/player/:id', authorize, (req, res, next) => {
   const id = Number.parseInt(req.params.id);
   console.log('######################## router/players #######################');
 

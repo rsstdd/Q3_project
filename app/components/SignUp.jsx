@@ -39,15 +39,17 @@ const SignUp = React.createClass({
     this.setState(nextState);
   },
 
-  handleSignUp() {
-    const age = this.state.age,
-      bio = this.state.bio,
-      country = this.state.country,
-      email = this.state.email,
-      firstName = this.state.firstName,
-      imgUrl = this.state.imgUrl,
-      lastName = this.state.lastName,
-      password = this.state.password;
+  handleSignUp(e) {
+    e.preventDefault();
+
+    const age = this.state.age;
+    const bio = this.state.bio;
+    const country = this.state.country;
+    const email = this.state.email;
+    const firstName = this.state.firstName;
+    const imgUrl = this.state.imgUrl;
+    const lastName = this.state.lastName;
+    const password = this.state.password;
 
     // if (!firstName.trim()) {
     //   alert('First name must not be blank');
@@ -70,48 +72,39 @@ const SignUp = React.createClass({
     // if (!bio.trim()) {
     //   alert('Bio must not be blank.');
     // }
-    // if (!password.trim() || password.length < 8) {
+    // if (!password.trim()) {
     //   alert('Avatar Url must not be blank.');
     // }
 
-    axios.post('/api/players',
-      { email, password, firstName, lastName, age, country, bio, imgUrl
-      })
+    axios.post('/api/players', { email, password, firstName, lastName, age, country, bio, imgUrl })
     .then((res) => {
       const newPlayer = res.data[0];
-      const id = res.data[0].id;
-
-      // this.props.handleSignUpPlayer(id);
 
       return newPlayer;
     })
     .then((newPlayer) => {
-      axios.post('/token', { email, password })
+      axios.post('api/token', { email, password })
         .then((res) => {
+          const playerId = res.data.id
 
-          this.props.handleAuthenticateUser(true);
-          this.props.handleGetUserId(email);
+          this.props.getPlayers();
+          console.log(res);
         })
         .catch((err) => {
           console.log(err);
-
-          this.props.handleAuthenticateUser(true);
         });
     })
   .catch((err) => {
     console.log(err);
-
-    this.props.handleAuthenticateUser(false);
   });
   },
 
   render() {
     return (
       <div>
-        {/* <Match pattern="/profile" component={Profile} /> */}
         <Paper style={style} zDepth={1}>
           <div>
-            <h1>This will be the signup Form...</h1>
+            <h1>Sign Up to Start Playing</h1>
               <TextField
                 hintText="First Name"
                 name="firstName"

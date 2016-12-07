@@ -9,15 +9,15 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import MatchRow from './MatchRow';
 
 const containerStyle = {
-  height: 400,
+  height: 700,
   width: 950,
   margin: '10px auto 0 auto',
-  paddingTop: '100px',
   textAlign: 'center',
-  display: 'flex',
+  display: 'block', // this too
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: '200px'
+  // paddingTop: '200px',
+  // marginTop: '400px'
 };
 
 const MatchTable = React.createClass({
