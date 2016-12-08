@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import FlatButton from 'material-ui/FlatButton'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {AppBar, Tab, Tabs} from 'material-ui';
-
+import { AppBar, FlatButton } from 'material-ui';
 
 // const styles = {
 //   headline: {
@@ -20,13 +19,11 @@ const Header = () => (
       title="PingPongThing"
       showMenuIconButton={false}
     >
-    <Tabs>
-        {/* <Tab label="logOut"
-        logOut={this.props.logOut}
-         /> */}
-        {/* <Tab label="Item 1" />
-        <Tab labfel="Item 1" /> */}
-      </Tabs>
+    iconElementRight={<FlatButton
+      label="Log Out"
+    />
+  }
+
     </AppBar>
   </div>
 );

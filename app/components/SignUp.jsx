@@ -51,30 +51,30 @@ const SignUp = React.createClass({
     const lastName = this.state.lastName;
     const password = this.state.password;
 
-    // if (!firstName.trim()) {
-    //   alert('First name must not be blank');
-    // }
-    // if (!lastName.trim()) {
-    //   alert('Last name must not be blank');
-    // }
-    // if (!email.trim()) {
-    //   alert('Email must not be blank.');
-    // }
-    // if (email.indexOf('@') !== -1) {
-    //   alert('Email must be valid.');
-    // }
-    // if (!password || password.length < 4) {
-    //   alert('Password must be valid.');
-    // }
-    // if (!country.trim()) {
-    //   alert('Country must not be blank.');
-    // }
-    // if (!bio.trim()) {
-    //   alert('Bio must not be blank.');
-    // }
-    // if (!password.trim()) {
-    //   alert('Avatar Url must not be blank.');
-    // }
+    if (!firstName.trim()) {
+      alert('First name must not be blank');
+    }
+    if (!lastName.trim()) {
+      alert('Last name must not be blank');
+    }
+    if (!email.trim()) {
+      alert('Email must not be blank.');
+    }
+    if (email.indexOf('@') !== -1) {
+      alert('Email must be valid.');
+    }
+    if (!password || password.length < 4) {
+      alert('Password must be valid.');
+    }
+    if (!country.trim()) {
+      alert('Country must not be blank.');
+    }
+    if (!bio.trim()) {
+      alert('Bio must not be blank.');
+    }
+    if (!password.trim()) {
+      alert('Avatar Url must not be blank.');
+    }
 
     axios.post('/api/players', { email, password, firstName, lastName, age, country, bio, imgUrl })
     .then((res) => {

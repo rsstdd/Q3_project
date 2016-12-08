@@ -46,7 +46,7 @@ const Main = React.createClass({
                <SignUp
                   authenticateUser={this.props.authenticateUser}
                   // getMatches={this.props.getMatches}
-                  getPlayers={this.props.getPlayers}
+                  // getPlayers={this.props.getPlayers}
                   isLoggedIn={this.props.isLoggedIn}
                   playerId={this.props.playerId}
                 />)
@@ -62,7 +62,7 @@ const Main = React.createClass({
              <SignIn
                authenticateUser={this.props.authenticateUser}
               //  getMatches={this.props.getMatches}
-               getPlayers={this.props.getPlayers}
+              //  getPlayers={this.props.getPlayers}
                isLoggedIn={this.props.isLoggedIn}
                playerId={this.props.playerId}
               />)

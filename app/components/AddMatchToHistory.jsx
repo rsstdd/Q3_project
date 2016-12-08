@@ -30,8 +30,7 @@ const AddMatchToHistory = React.createClass({
       nameP2: '',
       winP1: '',
       winP2: '',
-      AutoMatches: [],
-      names: this.props.playerNames
+      AutoMatches: []
     };
   },
 
@@ -56,15 +55,12 @@ const AddMatchToHistory = React.createClass({
 
     const lowerNames = this.props.playerNames.map((name) => {
       return name.toLowerCase();
-
     });
 
     const lowerPlayer = this.state.nameP2.toLowerCase();
     const index = lowerNames.indexOf(lowerPlayer);
 
     let p2Id = this.props.players[index].id;
-
-    console.log(p2Id, 'player2 Id');
 
     let WinP1 = false;
     let WinP2 = false;
@@ -95,6 +91,7 @@ const AddMatchToHistory = React.createClass({
   render() {
     if (this.props.matches) {
     const items = [];
+
       return (
         <div>
           <Paper style={matchContainerStyle} zDepth={1}>
@@ -102,66 +99,53 @@ const AddMatchToHistory = React.createClass({
               <div>
                 <h2>Add a Match to the History Books...</h2>
                 <div>
-                  <h4>Player 1:
+                  <h4>Player 1: &nbsp;
                      {this.props.user.firstName} {this.props.user.lastName}
                   </h4>
-                  <h4>Score:
+                  <h4>Score: &nbsp;
                     <TextField
                       name="scoreP1"
                       onChange={this.handleChange}
                       value={this.state.scoreP1}
                     />
-                    {/* <SelectField
-                       value={this.state.value}
-                       onChange={this.handleChange}
-                       maxHeight={200}
-                    >
-                      {items}
-                    </SelectField> */}
                   </h4>
                 </div>
                 <h4>Vs.</h4>
                 <div>
-                  <h4>Player 2:
+                  <h4>Player 2: &nbsp;
                     <TextField
                       dataSource={this.props.playerNames}
-                      // filter={AutoComplete.caseInsensitiveFilter}
-                      onChange={this.handleChange}
+                      filter={AutoComplete.caseInsensitiveFilter}
                       name="nameP2"
+                      onChange={this.handleChange}
                       value={this.state.nameP2}
                     />
                   </h4>
-                  <h4>Score:
-                    {/* <SelectField
-                       value={this.state.value}
-                       onChange={this.handleChange}
-                       maxHeight={200}
-                    >
-                      {items}
-                    </SelectField> */}
+                  <h4>Score: &nbsp;
                     <TextField
                       name="scoreP2"
                       onChange={this.handleChange}
                       value={this.state.scoreP2}
                     />
-                   </h4>
-                  {/* <div>
-                    <DatePicker hintText="Date" />
-                  </div> */}
+                  </h4>
                 </div>
               </div>
               <div >
                 <RaisedButton
                   label="Add Match Results"
+                  onClick={this.handleSubmit}
                   style={buttonStyle}
                   type="submit"
-                  onClick={this.handleSubmit}
                 />
               </div>
             </form>
           </Paper>
         </div>
       );
+    } else {
+      <Paper style={matchContainerStyle} zDepth={1}>
+        <h2>No Matches</h2>
+      </Paper>
     }
   }
 });

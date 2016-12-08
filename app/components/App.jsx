@@ -25,7 +25,6 @@ const App = React.createClass({
   componentDidMount() {
     axios.get('/api/me') // isLoggedIn then user info
       .then((res) => {
-        console.log(res.data.id);
         this.setState({
           isLoggedIn: true,
           playerId: res.data.id,
@@ -64,9 +63,12 @@ const App = React.createClass({
         const playerNames = players.map((item) => {
           return item.firstName;
         });
-
+        console.log(playerNames);
         this.setState({ playerNames: playerNames, players: players });
-      });
+      })
+      .then((err) => {
+        console.log(err);
+      })
   },
 
   getMatches(playerId) {
