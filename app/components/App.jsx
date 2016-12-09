@@ -36,8 +36,8 @@ const App = React.createClass({
         this.getMatches(this.state.playerId);
       })
       .catch((err) => {
-        this.setState({ isLoggedIn: false })
         console.log(err);
+        this.setState({ isLoggedIn: false });
       });
   },
 
@@ -89,10 +89,14 @@ const App = React.createClass({
   authenticateUser(email, password) {
     axios.post('api/token', { email, password })
     .then((res) => {
-      console.log(res);
+      this.setState({
+        isLoggedIn: true,
+        playerId: res.data.id,
+        user: res.data
+      });
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
     });
   },
 

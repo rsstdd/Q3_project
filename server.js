@@ -37,6 +37,15 @@ const matches = require('./routes/matches');
 const token = require('./routes/token');
 const me = require('./routes/me');
 
+// CSRF protection
+app.use((req, res, next) => { // starts with api or the path is not specified. protection against js insertion attacks
+  if (!req.path.startsWith('/api') || /json/.test(req.get('Accept'))) { // getting a header and ensuring that you're getting JSON from the server
+    return next();
+  }
+
+  res.sendStatus(406);
+});
+
 app.use('/api', players);
 app.use('/api', matches);
 app.use('/api', token);

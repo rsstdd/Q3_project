@@ -46,8 +46,8 @@ const SignIn = React.createClass({
 
     axios.post('/api/token', { email, password })
     .then((res) => {
+      this.props.getMatches();
       this.props.authenticateUser(email, password);
-      
     })
     .catch((error) => {
       console.log(error);
